@@ -24,11 +24,6 @@ Assuming you have node installed, get the code via
     git submodule update --init
     npm install vows
 
-You can get the Google Closure compiler as a JAR from the [Google Labs site](http://code.google.com/closure/compiler/) or get it via Rubygems:
-
-    gem install --no-rdoc --no-ri closure-compiler
-
-
 Build & Test
 ============
 
