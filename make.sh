@@ -17,6 +17,7 @@ vendor/coffee-script/bin/coffee   \
 #Run Closure Compiler
 java -jar vendor/closure-compiler.jar                                            \
     --js vendor/base.js                                                          \
+    --js vendor/jshashtable.js                                                   \
     --js $OUT/out.js                                                             \
     --js_output_file $OUT/compiled.js                                            \
     --compilation_level ADVANCED_OPTIMIZATIONS                                   \

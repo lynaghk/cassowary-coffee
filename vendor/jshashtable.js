@@ -26,6 +26,9 @@
  * Website: http://www.timdown.co.uk/jshashtable
  */
 
+// Modified by Kevin Lynagh to incorporate into Closure-based project
+goog.provide('Hashtable');
+
 var Hashtable = (function() {
 	var FUNCTION = "function";
 
@@ -339,17 +342,6 @@ var Hashtable = (function() {
 			while (i--) {
 				entry = entries[i];
 				context = callback(entry[0], entry[1]);
-			}
-		};
-
-		this.escapingEach = function(callback) {
-			var entries = that.entries(), i = entries.length, entry;
-                        var context = {}  // GJB
-			while (i--) {
-				entry = entries[i];
-				context = callback(entry[0], entry[1]);
-                                if (context.return) { return context.return; }
-                                if (context.break) { break; }
 			}
 		};
 
