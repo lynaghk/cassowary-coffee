@@ -763,5 +763,5 @@ var ClSimplexSolver = new Class({
     if (cnset == null) 
       this._errorVars.put(cn,cnset = new HashSet());
     cnset.add(aVar);
-  },
+  }
 });

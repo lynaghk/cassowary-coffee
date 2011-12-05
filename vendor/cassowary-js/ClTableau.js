@@ -155,7 +155,6 @@ var ClTableau = new Class({
   },
   rowExpression: function(v /*ClAbstractVariable*/) {
     return /* ClLinearExpression */this._rows.get(v);
-  },
+  }
 });
-
 

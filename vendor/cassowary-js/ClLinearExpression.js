@@ -238,7 +238,6 @@ var ClLinearExpression = new Class({
   },
   Divide: function(e1 /*ClLinearExpression*/, e2 /*ClLinearExpression*/) {
     return e1.divide(e2);
-  },
+  }
 });
-
 

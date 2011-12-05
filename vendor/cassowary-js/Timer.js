@@ -30,7 +30,7 @@ var Timer = new Class({
     } else {
       return (this._elapsedMs+(new Date()-this._startReading))/1000;
     }
-  },
+  }
 
 });
 

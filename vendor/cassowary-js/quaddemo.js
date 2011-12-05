@@ -57,9 +57,8 @@ var DraggableBox = new Class({
 
   toString: function() {
     return "<" + this.sx + "," + this.sy + ">";
-  },
+  }
 });
-
 
 var QuadDemo = new Class({
   init: function() {
@@ -344,7 +343,7 @@ var QuadDemo = new Class({
 
   getSolver: function() {
     return this.solver;
-  },
+  }
 
 });
 

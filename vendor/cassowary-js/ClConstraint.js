@@ -84,7 +84,7 @@ var ClConstraint = new Class({
 
   setWeight: function(weight /*double*/) {
     this._weight = weight;
-  },
+  }
 });
 
 
@@ -111,7 +111,7 @@ var ClEditOrStayConstraint = new Class({
 
   setVariable: function(v /*ClVariable*/) {
     this._variable = v;
-  },
+  }
 });
 
 
@@ -128,7 +128,7 @@ var ClEditConstraint = new Class({
   
   toString: function() {
     return "edit" + this.parent();
-  },
+  }
 });
 
 var ClStayConstraint = new Class({
@@ -144,7 +144,7 @@ var ClStayConstraint = new Class({
 
   toString: function() {
     return "stay " + this.parent();
-  },
+  }
 });
 
 ClConstraint.iConstraintNumber = 1;

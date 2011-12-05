@@ -48,5 +48,5 @@ var ClPoint = new Class({
 
   toString: function() {
     return "(" + this.x + ", " + this.y + ")";
-  },
+  }
 });

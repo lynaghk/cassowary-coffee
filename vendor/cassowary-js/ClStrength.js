@@ -36,9 +36,8 @@ var ClStrength = new Class({
   },
   set_symbolicWeight: function(symbolicWeight /*ClSymbolicWeight*/) {
     this._symbolicWeight = symbolicWeight;
-  },
+  }
 });
-
 /* public static final */
 ClStrength.required = new ClStrength("<Required>", 1000, 1000, 1000);
 /* public static final  */

@@ -16,9 +16,8 @@ var ClLinearConstraint = new Class({
 
   setExpression: function(expr /*ClLinearExpression*/) {
     this._expression = expr;
-  },
+  }
 });
-
 
 var ClLinearInequality = new Class({
   Extends: ClLinearConstraint,
@@ -56,9 +55,8 @@ var ClLinearInequality = new Class({
 
   toString: function() {
     return this.parent() + " >= 0 )";
-  },
+  }
 });
-
 
 var ClLinearEquation = new Class({
   Extends: ClLinearConstraint,
@@ -105,5 +103,5 @@ var ClLinearEquation = new Class({
 
   toString: function() {
     return this.parent() + " = 0 )";
-  },
+  }
 });

@@ -102,7 +102,7 @@ var ClVariable = new Class({
 
   getAttachedObject: function() {
     return this._attachedObject;
-  },
+  }
 });
 
 
@@ -140,7 +140,7 @@ var ClDummyVariable = new Class({
 
   toString: function() {
     return "[" + this.name() + ":dummy]";
-  },
+  }
 });
 
 var ClObjectiveVariable = new Class({
@@ -163,7 +163,7 @@ var ClObjectiveVariable = new Class({
 
   toString: function() {
     return "[" + this.name() + ":obj]";
-  },
+  }
 });
 
 
@@ -187,5 +187,5 @@ var ClSlackVariable = new Class({
 
   toString: function() {
     return "[" + this.name() + ":slack]";
-  },
+  }
 });

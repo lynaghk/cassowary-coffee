@@ -498,9 +498,8 @@ var ClTests = new Class({
       if (CL.fGC) print("Num vars = " + ClAbstractVariable.numCreated());
     }
     this.addDelSolvers(cns, resolves, solvers, testNum);
-  },
+  }
 });
-
 /* private static  */
 ClTests.iRandom = 0;
 /* private static  */
