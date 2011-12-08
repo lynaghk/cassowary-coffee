@@ -3,7 +3,7 @@ set -e
 
 OUT=out
 #Clean output folder
-rm -rfd $OUT
+rm -rf $OUT
 mkdir $OUT
 
 #Compile CoffeeScript
