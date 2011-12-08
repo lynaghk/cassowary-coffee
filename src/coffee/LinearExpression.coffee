@@ -120,7 +120,7 @@ class Cl.LinearExpression
 
   coefficientFor: (clv) -> @_terms.get(clv) || 0
   constant: -> @_constant
-  set_constant: (c) -> @_constant = c
+  set_constant: (@_constant) ->
   terms: -> @_terms
   incrementConstant: (c) -> @_constant += c
   isConstant: -> @_terms.size == 0

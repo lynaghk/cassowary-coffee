@@ -13,7 +13,7 @@ class Cl.Constraint
   strength: -> @_strength
   weight: -> @_weight
   toString: -> @_strength + " {" + @_weight + "} (" + @expression() + ")"
-  setAttachedObject: (o) -> @_attachedObject = o
+  setAttachedObject: (@_attachedObject) ->
   getAttachedObject: -> @_attachedObject
 
   changeStrength: (strength) ->
@@ -24,8 +24,8 @@ class Cl.Constraint
 
   addedTo: (solver) -> ++@_times_added
   removedFrom: (solver) -> --@_times_added
-  setStrength: (strength) -> @_strength = strength
-  setWeight: (weight) -> @_weight = weight
+  setStrength: (@_strength) ->
+  setWeight: (@_weight) ->
 
 
 class Cl.EditOrStayConstraint extends Cl.Constraint
@@ -36,7 +36,7 @@ class Cl.EditOrStayConstraint extends Cl.Constraint
 
   variable: -> @_variable
   expression: -> @_expression
-  setVariable: (v) -> @_variable = v
+  setVariable: (@_variable) ->
 
 
 class Cl.EditConstraint extends Cl.EditOrStayConstraint
