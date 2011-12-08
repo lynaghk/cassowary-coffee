@@ -30,7 +30,7 @@ class Cl.Constraint
 
 class Cl.EditOrStayConstraint extends Cl.Constraint
   constructor: (clv, strength, weight) ->
-    @parent strength, weight
+    super strength, weight
     @_variable = clv
     @_expression = new Cl.LinearExpression @_variable, -1, @_variable.value()
 
@@ -40,19 +40,15 @@ class Cl.EditOrStayConstraint extends Cl.Constraint
 
 
 class Cl.EditConstraint extends Cl.EditOrStayConstraint
-  constructor: (clv, strength, weight) ->
-    @parent clv, strength, weight
-
   isEditConstraint: -> true
-  toString: -> "edit" + @parent()
-
+  toString: -> "edit" + super()
 
 class Cl.StayConstraint extends Cl.EditOrStayConstraint
   initialize: (clv, strength, weight) ->
-    @parent clv, strength || Cl.Strength.weak, weight
+    super clv, strength || Cl.Strength.weak, weight
 
   isStayConstraint: -> true
-  toString: -> "stay " + @parent()
+  toString: -> "stay " + super()
 
 
 
