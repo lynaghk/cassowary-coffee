@@ -8,4 +8,4 @@ class Cl.EditInfo
   SetPrevEditConstant: (@prevEditConstant) ->
   toString: ->
     "<cn=" + @cn + ",ep=" + @clvEditPlus + ",em=" + @clvEditMinus + ",pec=" + @prevEditConstant + ",i=" + i + ">"
-)
+
