@@ -1,9 +1,10 @@
+include Cl
 include Hashtable
+include Cl.AbstractVariable as AbstractVariable
 
 class Cl.LinearExpression
 
   constructor: (clv, value, constant) ->
-    @val = clv
     @_constant = constant || 0
     @_terms = new Hashtable()
     if clv instanceof AbstractVariable
@@ -55,18 +56,18 @@ class Cl.LinearExpression
       @times 1/x._constant
 
   divFrom: (expr) ->
-    if (not @isConstant()) or Cl.approx @_constant, 0
+    if (not @isConstant()) or CL.approx @_constant, 0
       throw new Cl.errors.NonlinearExpression()
     expr.divide @_constant
 
   subtractFrom: (expr) -> expr.minus this
 
   addExpression: (expr, n, subject, solver) ->
-    if expr instanceof Cl.AbstractVariable
+    if expr instanceof AbstractVariable
       expr = new Cl.LinearExpression expr
     @incrementConstant n*expr.constant()
     n = n || 1
-    expr.terms.each (clv, coeff) => @addVariable clv, coeff*n, subject, solver
+    expr.terms().each (clv, coeff) => @addVariable clv, coeff*n, subject, solver
     return this
 
   addVariable: (v, c, subject, solver) ->
@@ -74,13 +75,13 @@ class Cl.LinearExpression
     coeff = @_terms.get v
     if coeff
       new_coefficient = coeff + c
-      if Cl.approx new_coefficient, 0
+      if CL.approx new_coefficient, 0
         if solver
           solver.noteRemovedVariable v, subject
           @_terms.remove v
         else
           @_terms.put v, new_coefficient
-      else if not Cl.approx c, 0
+      else if not CL.approx c, 0
         @_terms.put v, c
         solver.noteAddedVariable(v, subject) if solver
     return this
@@ -102,7 +103,7 @@ class Cl.LinearExpression
       old_coeff = @_terms.get clv
       if old_coeff
         new_coeff = old_coeff + multiplier*coeff
-        if Cl.approx new_coeff, 0
+        if CL.approx new_coeff, 0
           solver.noteRemovedVariable clv, subject
           @_terms.remove clv
         else
@@ -128,7 +129,7 @@ class Cl.LinearExpression
   toString: ->
     bstr = ''
     needsplus = false
-    if Cl.approx(@_constant, 0) || @isConstant()
+    if CL.approx(@_constant, 0) || @isConstant()
       bstr += @_constant
       return bstr if @isConstant()
     else
@@ -143,10 +144,10 @@ class Cl.LinearExpression
 
 
 
-goog.exportSymbol "LinearExpression", Cl.LinearExpression
-goog.exportSymbol "LinearExpression.prototype.times", Cl.LinearExpression.prototype.times
-goog.exportSymbol "LinearExpression.prototype.plus", Cl.LinearExpression.prototype.plus
-goog.exportSymbol "LinearExpression.prototype.minus", Cl.LinearExpression.prototype.minus
-goog.exportSymbol "LinearExpression.prototype.divide", Cl.LinearExpression.prototype.divide
+goog.exportSymbol "Cl.LinearExpression", Cl.LinearExpression
+# goog.exportSymbol "LinearExpression.prototype.times", Cl.LinearExpression.prototype.times
+# goog.exportSymbol "LinearExpression.prototype.plus", Cl.LinearExpression.prototype.plus
+# goog.exportSymbol "LinearExpression.prototype.minus", Cl.LinearExpression.prototype.minus
+# goog.exportSymbol "LinearExpression.prototype.divide", Cl.LinearExpression.prototype.divide
 
-goog.exportSymbol "LinearExpression.prototype.toString", Cl.LinearExpression.prototype.toString
+# goog.exportSymbol "LinearExpression.prototype.toString", Cl.LinearExpression.prototype.toString

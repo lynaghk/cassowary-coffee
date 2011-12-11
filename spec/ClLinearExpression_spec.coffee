@@ -8,6 +8,8 @@ vows
   .addBatch
     "initialized with a number":
       topic: -> new Cl.LinearExpression(5)
-      "adds up with scalar": (cle) -> assert.equal cle.plus(2), 7
+      "adds up with another LE": (cle) ->
+        seven = new Cl.LinearExpression(7)
+        assert.equal cle.plus(seven)._constant, 13
 
   .export(module)

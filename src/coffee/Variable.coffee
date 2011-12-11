@@ -1,3 +1,4 @@
+include Cl
 class Cl.AbstractVariable
   constructor: (a1, a2) ->
     @hash_code = Cl.AbstractVariable.iVariableNumber++
@@ -32,7 +33,7 @@ class Cl.Variable extends Cl.AbstractVariable
       @_value = name_or_val
     else
       super()
-    Cl.Variable._ourVarMap[@_name] = this if ClVariable._ourVarMap
+    Cl.Variable._ourVarMap[@_name] = this if Cl.Variable._ourVarMap
 
   isDummy: -> false
   isExternal: -> true

@@ -1,47 +1,49 @@
 #Global Cassowary functions
-
-class Cl.CL
+include Cl
+include Cl.LinearExpression as LinearExpression
+include Cl.Variable as Variable
+Cl.CL =
   Plus: (e1, e2) ->
-    e1 = new Cl.LinearExpression(e1) unless e1 instanceOf Cl.LinearExpression
-    e2 = new Cl.LinearExpression(e2) unless e2 instanceOf Cl.LinearExpression
+    e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
+    e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
     e1.plus e2
 
   Minus: (e1, e2) ->
-    e1 = new Cl.LinearExpression(e1) unless e1 instanceOf Cl.LinearExpression
-    e2 = new Cl.LinearExpression(e2) unless e2 instanceOf Cl.LinearExpression
+    e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
+    e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
     e1.minus e2
 
   Times: (e1, e2) ->
-    if e1 instanceof ClLinearExpression and
-       e2 instanceof ClLinearExpression
+    if e1 instanceof LinearExpression and
+       e2 instanceof LinearExpression
          e1.times e2
-    else if e1 instanceof ClLinearExpression and
-            e2 instanceof ClVariable
-              e1.times new ClLinearExpression(e2)
-    else if e1 instanceof ClVariable and
-            e2 instanceof ClLinearExpression
-              (new ClLinearExpression(e1)).times e2
-    else if e1 instanceof ClLinearExpression and
+    else if e1 instanceof LinearExpression and
+            e2 instanceof Variable
+              e1.times new LinearExpression(e2)
+    else if e1 instanceof Variable and
+            e2 instanceof LinearExpression
+              (new LinearExpression(e1)).times e2
+    else if e1 instanceof LinearExpression and
             typeof (e2) is "number"
-              e1.times new ClLinearExpression(e2)
+              e1.times new LinearExpression(e2)
     else if typeof (e1) is "number" and
-            e2 instanceof ClLinearExpression
-              (new ClLinearExpression(e1)).times e2
+            e2 instanceof LinearExpression
+              (new LinearExpression(e1)).times e2
     else if typeof (e1) is "number" and
-            e2 instanceof ClVariable
-              new ClLinearExpression(e2, e1)
-    else if e1 instanceof ClVariable and
+            e2 instanceof Variable
+              new LinearExpression(e2, e1)
+    else if e1 instanceof Variable and
             typeof (e2) is "number"
-              new ClLinearExpression(e1, e2)
-    else if e1 instanceof ClVariable and
-            e2 instanceof ClLinearExpression
-              new ClLinearExpression(e2, n)
+              new LinearExpression(e1, e2)
+    else if e1 instanceof Variable and
+            e2 instanceof LinearExpression
+              new LinearExpression(e2, n)
 
   Divide: (e1, e2) -> e1.divide e2
 
   approx: (a, b) ->
-    a = a.value() if a instanceof ClVariable
-    b = b.vblue() if b instanceof ClVariable
+    a = a.value() if a instanceof Variable
+    b = b.vblue() if b instanceof Variable
     epsilon = 1e-8
     if a == 0
       Math.abs(b) < epsilon
@@ -73,3 +75,7 @@ class Cl.CL
       answer += e
     answer += "}\n"
     return answer
+
+goog.exportSymbol "Cl", Cl
+goog.exportSymbol "Cl.CL", Cl.CL
+goog.exportSymbol "Cl.CL.Plus", Cl.CL.Plus

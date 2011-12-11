@@ -1,3 +1,5 @@
+class Cl.errors
+
 class Cl.errors.Error
   description: -> "An error has occurred in Cassowary Coffee"
   toString: -> @description()
