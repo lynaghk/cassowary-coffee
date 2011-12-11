@@ -4,6 +4,7 @@ set -e
 COFFEE_IN=src/coffee/
 JS_OUT=out/js/
 COMPILED_FILE=out/cassowary-coffee.min.js
+DEBUG_FILE=out/cassowary-debug.js
 #Clean output folder
 rm -rf $COMPILED_FILE $JS_OUT
 
@@ -24,3 +25,5 @@ java -jar vendor/closure-compiler.jar          \
     --js vendor/jshashset.js                   \
     --js $(find $JS_OUT -name '*.js')
 
+#Beautify for debugging
+cat $COMPILED_FILE | uglifyjs --beautify > $DEBUG_FILE
