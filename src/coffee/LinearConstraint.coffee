@@ -1,3 +1,5 @@
+include Cl.Constraint
+include Cl.Strength
 class Cl.LinearConstraint extends Cl.Constraint
   constructor: (cle, strength, weight) ->
     super strength, weight
@@ -41,7 +43,7 @@ class Cl.LinearInequality extends Cl.LinearConstraint
 
 class Cl.LinearEquation extends Cl.LinearConstraint
   constructor: (a1, a2, a3, a4) ->
-    if a1 instanceof Cl.LinearExpression and not a2 or a2 instanceof ClStrength
+    if a1 instanceof Cl.LinearExpression and not a2 or a2 instanceof Cl.Strength
       super a1, a2, a3
     else if (a1 instanceof Cl.AbstractVariable) and (a2 instanceof Cl.LinearExpression)
       clv = a1

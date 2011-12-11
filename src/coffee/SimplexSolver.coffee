@@ -67,7 +67,7 @@ class Cl.SimplexSolver extends Cl.Tableau
       return false
 
   addEditVar: (v, strength) ->
-    strength = strength or ClStrength.strong
+    strength = strength or Cl.Strength.strong
     cnEdit = new Cl.EditConstraint(v, strength)
     @addConstraint cnEdit
     return this
@@ -176,7 +176,6 @@ class Cl.SimplexSolver extends Cl.Tableau
             if not exitVar? or r < minRatio
               minRatio = r
               exitVar = v
-      unless exitVar?
         if col.size() == 0
           @removeColumn marker
         else
@@ -209,7 +208,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     if @_fOptimizeAutomatically
       @optimize @_objective
       @setExternalVariables()
-   return this
+    return this
 
   reset: -> throw new Cl.errors.InternalError("reset not implemented")
 
@@ -424,7 +423,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     cnExpr = cn.expression()
     expr = new Cl.LinearExpression(cnExpr.constant())
     slackVar = new Cl.SlackVariable()
-    dummyVar = new ClDummyVariable()
+    dummyVar = new Cl.DummyVariable()
     eminus = new Cl.SlackVariable()
     eplus = new Cl.SlackVariable()
     cnTerms = cnExpr.terms()
@@ -452,7 +451,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     else
       if cn.isRequired()
         ++@_dummyCounter
-        dummyVar = new ClDummyVariable(@_dummyCounter, "d")
+        dummyVar = new Cl.DummyVariable(@_dummyCounter, "d")
         expr.setVariable dummyVar, 1.0
         @_markerVars.put cn, dummyVar
       else
