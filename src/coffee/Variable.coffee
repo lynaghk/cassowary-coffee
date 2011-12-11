@@ -52,6 +52,7 @@ Cl.Variable.getVarMap = (map) -> @_ourVarMap
 
 
 class Cl.DummyVariable extends Cl.AbstractVariable
+  constructor: (name_or_val, prefix) -> super name_or_val, prefix
   isDummy: -> true
   isExternal: -> false
   isPivotable: -> false
@@ -60,6 +61,7 @@ class Cl.DummyVariable extends Cl.AbstractVariable
 
 
 class Cl.ObjectiveVariable extends Cl.AbstractVariable
+  constructor: (name_or_val, prefix) -> super name_or_val, prefix
   isExternal: -> false
   isPivotable: -> false
   isRestricted: -> false
@@ -67,6 +69,7 @@ class Cl.ObjectiveVariable extends Cl.AbstractVariable
 
 
 class Cl.SlackVariable extends Cl.AbstractVariable
+  constructor: (name_or_val, prefix) -> super name_or_val, prefix
   isExternal: -> false
   isPivotable: -> true
   isRestricted: -> true
