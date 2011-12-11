@@ -1,3 +1,10 @@
+include Cl.Tableau
+include Hashtable
+include HashSet
+include Cl.ObjectiveVariable
+include Cl.LinearExpression
+
+
 class Cl.SimplexSolver extends Cl.Tableau
   constructor: ->
     super()

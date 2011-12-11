@@ -1,4 +1,5 @@
 include Cl
+include Cl.CL as CL
 include Hashtable
 include Cl.AbstractVariable as AbstractVariable
 
