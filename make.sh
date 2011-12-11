@@ -21,5 +21,6 @@ java -jar vendor/closure-compiler.jar          \
     --output_manifest manifest.MF \
     --js vendor/base.js                        \
     --js vendor/jshashtable.js                 \
+    --js vendor/jshashset.js                   \
     --js $(find $JS_OUT -name '*.js')
 
