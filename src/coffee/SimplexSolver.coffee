@@ -3,6 +3,7 @@ include Hashtable
 include HashSet
 include Cl.ObjectiveVariable
 include Cl.LinearExpression
+include Cl.StayConstraint
 
 
 class Cl.SimplexSolver extends Cl.Tableau
@@ -129,7 +130,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     return this
 
   addStay: (v, strength, weight) ->
-    cn = new ClStayConstraint(v, strength or Cl.Strength.weak, weight or 1.0)
+    cn = new Cl.StayConstraint(v, strength or Cl.Strength.weak, weight or 1.0)
     @addConstraint cn
 
   removeConstraint: (cn) ->

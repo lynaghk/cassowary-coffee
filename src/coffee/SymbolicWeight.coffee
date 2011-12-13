@@ -2,10 +2,10 @@ class Cl.SymbolicWeight
   constructor: (w1, w2, w3) ->
     @_values = new Array(w1, w2, w3)
 
-  times: (n) -> new ClSymbolicWeight(@_values[0] * n, @_values[1] * n, @_values[2] * n)
-  divideBy: (n) -> new ClSymbolicWeight(@_values[0] / n, @_values[1] / n, @_values[2] / n)
-  add: (c) -> new Cl.SymbolicWeight(@_values[0] + c._values[0], @_values[1] + c._values[1], @_values[2] + c._values[2])
-  subtract: (c) -> new Cl.SymbolicWeight(@_values[0] - c._values[0], @_values[1] - c._values[1], @_values[2] - c._values[2])
+  times: (n) -> new Cl.SymbolicWeight @_values[0] * n, @_values[1] * n, @_values[2] * n
+  divideBy: (n) -> new Cl.SymbolicWeight @_values[0] / n, @_values[1] / n, @_values[2] / n
+  add: (c) -> new Cl.SymbolicWeight @_values[0] + c._values[0], @_values[1] + c._values[1], @_values[2] + c._values[2]
+  subtract: (c) -> new Cl.SymbolicWeight @_values[0] - c._values[0], @_values[1] - c._values[1], @_values[2] - c._values[2]
 
   lessThan: (c) ->
     i = 0

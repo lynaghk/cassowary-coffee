@@ -1,3 +1,6 @@
+include Cl.LinearExpression
+include Cl.Strength
+
 class Cl.Constraint
   constructor: (strength, weight) ->
     @hash_code = Cl.Constraint.iConstraintNumber++
@@ -43,8 +46,9 @@ class Cl.EditConstraint extends Cl.EditOrStayConstraint
   isEditConstraint: -> true
   toString: -> "edit" + super()
 
+
 class Cl.StayConstraint extends Cl.EditOrStayConstraint
-  initialize: (clv, strength, weight) ->
+  constructor: (clv, strength, weight) ->
     super clv, strength || Cl.Strength.weak, weight
 
   isStayConstraint: -> true
