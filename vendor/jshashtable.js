@@ -344,6 +344,19 @@ var Hashtable = (function() {
 				context = callback(entry[0], entry[1]);
 			}
 		};
+    
+    //Added by Cassowary authors.
+    //Once the port is up and working with tests we'll depreciate this function and rewrite the parts of Cassowary Coffee that use it.
+		this.escapingEach = function(callback) {
+			var entries = that.entries(), i = entries.length, entry;
+      var context = {};  // GJB
+			while (i--) {
+				entry = entries[i];
+				context = callback(entry[0], entry[1]);
+        if (context.retval) { return context.retval; }
+        if (context.brk) { break; }
+			}
+		};
 
 		this.putAll = function(hashtable, conflictCallback) {
 			var entries = hashtable.entries();
