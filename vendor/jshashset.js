@@ -49,6 +49,15 @@ var HashSet = (function() {
       return hashTable.keys();
     };
     
+    this.each = function(callback) {
+      var entries = this.values(),
+          i = entries.length;
+			while (i--) {
+				callback(entries[i]);
+			}
+		};
+
+    
     this.remove = function(o) {
       return hashTable.remove(o) ? o : null;
     };
