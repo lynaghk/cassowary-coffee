@@ -39,7 +39,7 @@ Cl.CL =
   #             new LinearExpression(e2, n)
 
   # Divide: (e1, e2) -> e1.divide e2
-
+  Assert: (bool) -> throw "Nope." unless bool
   approx: (a, b) ->
     a = a.value() if a instanceof Variable
     b = b.vblue() if b instanceof Variable
