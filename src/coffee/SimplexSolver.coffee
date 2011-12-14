@@ -1,9 +1,13 @@
-include Cl.Tableau
 include Hashtable
 include HashSet
+include Cl.CL as CL
 include Cl.ObjectiveVariable
 include Cl.LinearExpression
 include Cl.StayConstraint
+include Cl.errors
+include Cl.Tableau
+include Cl.SlackVariable
+include Cl.DummyVariable
 
 
 class Cl.SimplexSolver extends Cl.Tableau
@@ -340,7 +344,6 @@ class Cl.SimplexSolver extends Cl.Tableau
     expr.newSubject subject
     @substituteOut subject, expr  if @columnsHasKey(subject)
     @addRow subject, expr
-    CL.fnexitprint "returning true"  if CL.fTraceOn
     return true
 
   chooseSubject: (expr) ->
@@ -348,20 +351,20 @@ class Cl.SimplexSolver extends Cl.Tableau
     foundUnrestricted = false
     foundNewRestricted = false
     terms = expr.terms()
-    rv = terms.escapingEach (v, c) =>
+    that = this
+    rv = terms.escapingEach (v, c) ->
       if foundUnrestricted
-        retval: v  unless @columnsHasKey(v)  unless v.isRestricted()
+        retval: v  unless that.columnsHasKey(v)  unless v.isRestricted()
       else
         if v.isRestricted()
           if not foundNewRestricted and not v.isDummy() and c < 0.0
-            col = @_columns.get(v)
-            if not col? or (col.size() == 1 and @columnsHasKey(@_objective))
+            col = that._columns.get(v)
+            if not col? or (col.size() == 1 and that.columnsHasKey(that._objective))
               subject = v
               foundNewRestricted = true
         else
           subject = v
           foundUnrestricted = true
-
     return rv.retval  if rv and rv.retval != undefined
     return subject  if subject?
     coeff = 0.0
@@ -370,7 +373,6 @@ class Cl.SimplexSolver extends Cl.Tableau
       unless @columnsHasKey(v)
         subject = v
         coeff = c
-
     return rv.retval  if rv and rv.retval != undefined
     throw new Cl.errors.RequiredFailure()  unless CL.approx(expr.constant(), 0.0)
     expr.multiplyMe -1  if coeff > 0.0
@@ -428,13 +430,13 @@ class Cl.SimplexSolver extends Cl.Tableau
     eminus = new Cl.SlackVariable()
     eplus = new Cl.SlackVariable()
     cnTerms = cnExpr.terms()
+
     cnTerms.each (v, c) =>
       e = @rowExpression(v)
       unless e?
         expr.addVariable v, c
       else
         expr.addExpression e, c
-
     if cn.isInequality()
       ++@_slackCounter
       slackVar = new Cl.SlackVariable(@_slackCounter, "s")
@@ -461,6 +463,7 @@ class Cl.SimplexSolver extends Cl.Tableau
         eminus = new Cl.SlackVariable(@_slackCounter, "em")
         expr.setVariable eplus, -1.0
         expr.setVariable eminus, 1.0
+
         @_markerVars.put cn, eplus
         zRow = @rowExpression(@_objective)
         sw = cn.strength().symbolicWeight().times(cn.weight())

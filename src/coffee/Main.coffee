@@ -1,6 +1,5 @@
 include Cl
 include Cl.CL
 include Cl.LinearExpression
-include Cl.Variable
-
-
+include Cl.SimplexSolver
+include HashSet

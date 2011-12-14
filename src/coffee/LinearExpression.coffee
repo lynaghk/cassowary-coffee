@@ -70,7 +70,6 @@ class Cl.LinearExpression
     n = n || 1
     expr.terms().each (clv, coeff) => @addVariable clv, coeff*n, subject, solver
     return this
-
   addVariable: (v, c, subject, solver) ->
     c = c || 1
     coeff = @_terms.get v
@@ -82,9 +81,9 @@ class Cl.LinearExpression
           @_terms.remove v
         else
           @_terms.put v, new_coefficient
-      else if not CL.approx c, 0
-        @_terms.put v, c
-        solver.noteAddedVariable(v, subject) if solver
+    else if not CL.approx c, 0
+      @_terms.put v, c
+      solver.noteAddedVariable(v, subject) if solver
     return this
 
   setVariable: (v, c) ->

@@ -353,8 +353,10 @@ var Hashtable = (function() {
 			while (i--) {
 				entry = entries[i];
 				context = callback(entry[0], entry[1]);
-        if (context.retval) { return context.retval; }
-        if (context.brk) { break; }
+        if (context && context.retval)
+          return context.retval;
+        if (context && context.brk)
+          break;
 			}
 		};
 

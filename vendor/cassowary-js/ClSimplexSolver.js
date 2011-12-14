@@ -488,16 +488,19 @@ var ClSimplexSolver = new Class({
           if (!foundNewRestricted && !v.isDummy() && c < 0.0) {
             var col = that._columns.get(v);
             if (col == null || (col.size() == 1 && that.columnsHasKey(that._objective))) {
+              console.log("setting subject 1");
               subject = v;
               foundNewRestricted = true;
             }
           }
         } else {
+          console.log("setting subject 2");
           subject = v;
           foundUnrestricted = true;
         }
       }
     });
+
     if (rv && rv.retval !== undefined) return rv.retval;
 
     if (subject != null) 
@@ -607,9 +610,14 @@ var ClSimplexSolver = new Class({
     var cnTerms = cnExpr.terms();
     cnTerms.each(function(v,c) {
       var e = that.rowExpression(v);
-      if (e == null) expr.addVariable(v, c);
+      if (e == null){
+        expr.addVariable(v, c);
+        console.log(expr.terms().values());
+        }
       else expr.addExpression(e, c);
     });
+
+
     if (cn.isInequality()) {
       ++this._slackCounter;
       slackVar = new ClSlackVariable(this._slackCounter, "s");
@@ -638,6 +646,7 @@ var ClSimplexSolver = new Class({
         eminus = new ClSlackVariable(this._slackCounter, "em");
         expr.setVariable(eplus, -1.0);
         expr.setVariable(eminus, 1.0);
+
         this._markerVars.put(cn, eplus);
         var zRow = this.rowExpression(this._objective);
         var sw = cn.strength().symbolicWeight().times(cn.weight());
