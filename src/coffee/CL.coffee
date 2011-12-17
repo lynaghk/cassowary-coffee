@@ -2,6 +2,8 @@
 # include Cl.LinearExpression as LinearExpression
 include Cl.Variable as Variable
 Cl.CL =
+  GEQ: 1
+  LEQ: 2
   # Plus: (e1, e2) ->
   #   e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
   #   e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression

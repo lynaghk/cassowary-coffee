@@ -17,12 +17,12 @@ If you just want to use Cassowary on your webpage, grab the minified JavaScript 
 
     http://keminglabs.com/cassowary-coffee/cassowary.min.js
 
-Development requires node.js for the CoffeeScript compiler and Vows testing library.
+Development requires node.js for the CoffeeScript compiler and the Vows and Jasmine testing libraries
 Assuming you have node installed, get the code via
 
     git clone https://github.com/lynaghk/cassowary-coffee.git
     git submodule update --init
-    npm install vows
+    npm install vows jasmine-node
 
 Build & Test
 ============

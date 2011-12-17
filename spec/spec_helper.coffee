@@ -6,3 +6,10 @@ LIB_PATH = "../out/cassowary-debug.js"
 
 for k,v of require(LIB_PATH)
   global[k] = v
+
+global.CL = Cl.CL
+
+if jasmine?
+  jasmine.Matchers::toApproximate = (expected) ->
+    expect(CL.approx(@actual, expected)).toBeTruthy()
+
