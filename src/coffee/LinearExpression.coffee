@@ -79,8 +79,8 @@ class Cl.LinearExpression
         if solver
           solver.noteRemovedVariable v, subject
           @_terms.remove v
-        else
-          @_terms.put v, new_coefficient
+      else
+        @_terms.put v, new_coefficient
     else if not CL.approx c, 0
       @_terms.put v, c
       solver.noteAddedVariable(v, subject) if solver
