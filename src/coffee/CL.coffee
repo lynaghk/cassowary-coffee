@@ -1,6 +1,11 @@
 #Global Cassowary functions
-# include Cl.LinearExpression as LinearExpression
+include Cl
 include Cl.Variable as Variable
+# include Cl.LinearExpression as LinearExpression
+
+#This is just to get the goog.provides
+class Cl.CL
+
 Cl.CL =
   GEQ: 1
   LEQ: 2
