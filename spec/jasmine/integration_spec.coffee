@@ -36,5 +36,8 @@ describe "adding and deleting constraints", ->
 
   it "sets x to the minimum constraint", ->
     expect(@x).toApproximate 10
+  it "sets x to the minimum constraint after one constraint is removed", ->
+    @solver.removeConstraint @c10
+    expect(@x).toApproximate 20
 
 

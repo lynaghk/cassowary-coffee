@@ -181,10 +181,8 @@ class Cl.SimplexSolver extends Cl.Tableau
         if col.size() == 0
           @removeColumn marker
         else
-          col.escapingEach (v) =>
-            unless v == that._objective
-              exitVar = v
-              brk: true
+          col.each (v) => exitVar = v unless v == @_objective
+
       @pivot marker, exitVar  if exitVar?
     if @rowExpression(marker)?
       expr = @removeRow(marker)
