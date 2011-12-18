@@ -1,51 +1,12 @@
 #Global Cassowary functions
-include Cl
 include Cl.Variable as Variable
-# include Cl.LinearExpression as LinearExpression
 
-#This is just to get the goog.provides
-class Cl.CL
+goog.provide "Cl.CL"
 
+#Times, Plus, and Minus functions from the original Cassowary JavaScript port are mixed into the Cl.CL object after LinearExpression is defined.
 Cl.CL =
   GEQ: 1
   LEQ: 2
-  # Plus: (e1, e2) ->
-  #   e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
-  #   e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
-  #   e1.plus e2
-
-  # Minus: (e1, e2) ->
-  #   e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
-  #   e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
-  #   e1.minus e2
-
-  # Times: (e1, e2) ->
-  #   if e1 instanceof LinearExpression and
-  #      e2 instanceof LinearExpression
-  #        e1.times e2
-  #   else if e1 instanceof LinearExpression and
-  #           e2 instanceof Variable
-  #             e1.times new LinearExpression(e2)
-  #   else if e1 instanceof Variable and
-  #           e2 instanceof LinearExpression
-  #             (new LinearExpression(e1)).times e2
-  #   else if e1 instanceof LinearExpression and
-  #           typeof (e2) is "number"
-  #             e1.times new LinearExpression(e2)
-  #   else if typeof (e1) is "number" and
-  #           e2 instanceof LinearExpression
-  #             (new LinearExpression(e1)).times e2
-  #   else if typeof (e1) is "number" and
-  #           e2 instanceof Variable
-  #             new LinearExpression(e2, e1)
-  #   else if e1 instanceof Variable and
-  #           typeof (e2) is "number"
-  #             new LinearExpression(e1, e2)
-  #   else if e1 instanceof Variable and
-  #           e2 instanceof LinearExpression
-  #             new LinearExpression(e2, n)
-
-  # Divide: (e1, e2) -> e1.divide e2
   Assert: (bool) -> throw "Nope." unless bool
   approx: (a, b) ->
     a = a.value() if a instanceof Variable
@@ -85,3 +46,4 @@ Cl.CL =
 goog.exportSymbol "Cl", Cl
 goog.exportSymbol "Cl.CL", Cl.CL
 goog.exportSymbol "Cl.CL.Plus", Cl.CL.Plus
+

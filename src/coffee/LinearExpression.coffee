@@ -141,6 +141,45 @@ class Cl.LinearExpression
     return bstr
 
 
+#Mixin CL singleton functions that rely on LinearExpression
+LinearExpression = Cl.LinearExpression
+include Cl.Variable as Variable
+
+CL["Times"] = (e1, e2) ->
+  if e1 instanceof LinearExpression and
+     e2 instanceof LinearExpression
+       e1.times e2
+  else if e1 instanceof LinearExpression and
+          e2 instanceof Variable
+            e1.times new LinearExpression(e2)
+  else if e1 instanceof Variable and
+          e2 instanceof LinearExpression
+            (new LinearExpression(e1)).times e2
+  else if e1 instanceof LinearExpression and
+          typeof (e2) is "number"
+            e1.times new LinearExpression(e2)
+  else if typeof (e1) is "number" and
+          e2 instanceof LinearExpression
+            (new LinearExpression(e1)).times e2
+  else if typeof (e1) is "number" and
+          e2 instanceof Variable
+            new LinearExpression(e2, e1)
+  else if e1 instanceof Variable and
+          typeof (e2) is "number"
+            new LinearExpression(e1, e2)
+  else if e1 instanceof Variable and
+          e2 instanceof LinearExpression
+            new LinearExpression(e2, n)
+
+CL["Plus"] = (e1, e2) ->
+  e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
+  e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
+  e1.plus e2
+
+CL["Minus"] = (e1, e2) ->
+  e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
+  e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
+  e1.minus e2
 
 
 
