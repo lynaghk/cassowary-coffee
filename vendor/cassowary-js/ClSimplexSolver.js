@@ -476,6 +476,7 @@ var ClSimplexSolver = new Class({
     var foundUnrestricted = false;
     var foundNewRestricted = false;
     var terms = expr.terms();
+
     var rv = terms.escapingEach(function(v, c) {
       if (foundUnrestricted) {
         if (!v.isRestricted()) {
@@ -488,13 +489,11 @@ var ClSimplexSolver = new Class({
           if (!foundNewRestricted && !v.isDummy() && c < 0.0) {
             var col = that._columns.get(v);
             if (col == null || (col.size() == 1 && that.columnsHasKey(that._objective))) {
-              console.log("setting subject 1");
               subject = v;
               foundNewRestricted = true;
             }
           }
         } else {
-          console.log("setting subject 2");
           subject = v;
           foundUnrestricted = true;
         }
@@ -520,6 +519,7 @@ var ClSimplexSolver = new Class({
         coeff = c;
       }
     });
+
     if (rv && rv.retval !== undefined) return rv.retval;
 
     if (!CL.approx(expr.constant(), 0.0)) {
@@ -612,7 +612,6 @@ var ClSimplexSolver = new Class({
       var e = that.rowExpression(v);
       if (e == null){
         expr.addVariable(v, c);
-        console.log(expr.terms().values());
         }
       else expr.addExpression(e, c);
     });

@@ -120,7 +120,6 @@ var ClLinearExpression = new Class({
         this._terms.put(v, new_coefficient);
       }
     } else {
-      console.log(CL.approx(c, 0.0));
 
       if (!CL.approx(c, 0.0)) {
         this._terms.put(v, c);

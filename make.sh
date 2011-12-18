@@ -16,14 +16,13 @@ vendor/coffee-script/bin/coffee   \
 
 #Run Closure Compiler
 java -jar vendor/closure-compiler.jar          \
-    --js_output_file $COMPILED_FILE            \
+    --js_output_file $DEBUG_FILE            \
     --compilation_level WHITESPACE_ONLY        \
+    --formatting PRETTY_PRINT                  \
     --manage_closure_dependencies true         \
     --output_manifest manifest.MF \
     --js vendor/base.js                        \
+    --js vendor/underscore.js                  \
     --js vendor/jshashtable.js                 \
     --js vendor/jshashset.js                   \
     --js $(find $JS_OUT -name '*.js')
-
-#Beautify for debugging
-cat manifest.MF | xargs cat > $DEBUG_FILE

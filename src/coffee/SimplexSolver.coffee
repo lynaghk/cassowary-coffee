@@ -8,7 +8,7 @@ include Cl.errors
 include Cl.Tableau
 include Cl.SlackVariable
 include Cl.DummyVariable
-
+include underscore._ as _
 
 class Cl.SimplexSolver extends Cl.Tableau
   constructor: ->
@@ -348,31 +348,33 @@ class Cl.SimplexSolver extends Cl.Tableau
     foundUnrestricted = false
     foundNewRestricted = false
     terms = expr.terms()
-    that = this
-    rv = terms.escapingEach (v, c) ->
+
+    terms.each (v, c) =>
       if foundUnrestricted
-        retval: v  unless that.columnsHasKey(v)  unless v.isRestricted()
+        return v if !v.isRestricted() and !@columnsHasKey v
+      else if v.isRestricted()
+        if not foundNewRestricted and not v.isDummy() and c < 0.0
+          col = @_columns.get(v)
+          if not col? or (col.size() == 1 and @columnsHasKey(@_objective))
+            subject = v
+            foundNewRestricted = true
       else
-        if v.isRestricted()
-          if not foundNewRestricted and not v.isDummy() and c < 0.0
-            col = that._columns.get(v)
-            if not col? or (col.size() == 1 and that.columnsHasKey(that._objective))
-              subject = v
-              foundNewRestricted = true
-        else
-          subject = v
-          foundUnrestricted = true
-    return rv.retval  if rv and rv.retval != undefined
+        subject = v
+        foundUnrestricted = true
+
     return subject  if subject?
-    coeff = 0.0
-    rv = terms.escapingEach (v, c) =>
-      return {retval: null}  unless v.isDummy()
+    coeff = 0
+
+    if _(terms.keys()).any((v) -> not v.isDummy())
+      return null
+
+    terms.each (v, c) =>
       unless @columnsHasKey(v)
         subject = v
         coeff = c
-    return rv.retval  if rv and rv.retval != undefined
-    throw new Cl.errors.RequiredFailure()  unless CL.approx(expr.constant(), 0.0)
-    expr.multiplyMe -1  if coeff > 0.0
+
+    throw new Cl.errors.RequiredFailure()  unless CL.approx(expr.constant(), 0)
+    expr.multiplyMe -1  if coeff > 0
     return subject
 
   deltaEditConstant: (delta, plusErrorVar, minusErrorVar) ->
@@ -434,6 +436,7 @@ class Cl.SimplexSolver extends Cl.Tableau
         expr.addVariable v, c
       else
         expr.addExpression e, c
+
     if cn.isInequality()
       ++@_slackCounter
       slackVar = new Cl.SlackVariable(@_slackCounter, "s")
