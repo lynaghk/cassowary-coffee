@@ -76,5 +76,21 @@ describe "adding and deleting constraints", ->
       expect(@x).toApproximate 20
       expect(@y).toApproximate 120
 
+    describe "with a constraint between the variables", ->
+      beforeEach ->
+        @cxy = new Cl.LinearEquation CL.Times(2, @x), @y
+        @solver.addConstraint @cxy
+
+      it "satisfies the constraint", ->
+        expect(@x).toApproximate 10
+        expect(@y).toApproximate 20
+
+      it "satisfies the constraint after x changes", ->
+        @solver.removeConstraint @c10
+
+        expect(@x).toApproximate 20
+        expect(@y).toApproximate 40
+
+
 
 
