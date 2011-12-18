@@ -49,14 +49,11 @@ class Cl.SimplexSolver extends Cl.Tableau
     prevEConstant = new Array(1)
     expr = @newExpression(cn, eplus_eminus, prevEConstant)
     prevEConstant = prevEConstant[0]
-    fAddedOkDirectly = @tryAddingDirectly(expr)
-    @addWithArtificialVariable expr unless fAddedOkDirectly
+    @addWithArtificialVariable(expr) unless @tryAddingDirectly(expr)
     @_fNeedsSolving = true
     if cn.isEditConstraint()
       i = @_editVarMap.size()
       [clvEplus, clvEminus] = eplus_eminus
-      print "clvEplus not a slack variable = " + clvEplus  if not clvEplus instanceof Cl.SlackVariable
-      print "clvEminus not a slack variable = " + clvEminus  if not clvEminus instanceof Cl.SlackVariable
       @_editVarMap.put cn.variable(), new Cl.EditInfo(cn, clvEplus, clvEminus, prevEConstant, i)
     if @_fOptimizeAutomatically
       @optimize @_objective

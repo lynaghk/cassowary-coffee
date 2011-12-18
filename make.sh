@@ -26,4 +26,4 @@ java -jar vendor/closure-compiler.jar          \
     --js $(find $JS_OUT -name '*.js')
 
 #Beautify for debugging
-cat $COMPILED_FILE | uglifyjs --beautify > $DEBUG_FILE
+cat manifest.MF | xargs cat > $DEBUG_FILE
