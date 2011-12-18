@@ -25,7 +25,6 @@ describe "simple constraints", ->
 describe "adding and deleting constraints", ->
   beforeEach ->
     @x = new Cl.Variable "x"
-    @y = new Cl.Variable "y"
     @c10 = new Cl.LinearInequality @x, CL.LEQ, 10
     @c20 = new Cl.LinearInequality @x, CL.LEQ, 20
     @solver = new Cl.SimplexSolver
@@ -36,8 +35,46 @@ describe "adding and deleting constraints", ->
 
   it "sets x to the minimum constraint", ->
     expect(@x).toApproximate 10
+
   it "sets x to the minimum constraint after one constraint is removed", ->
     @solver.removeConstraint @c10
     expect(@x).toApproximate 20
+
+  it "sets x to the single constraint after the others are removed", ->
+    @solver
+      .removeConstraint(@c10)
+      .removeConstraint(@c20)
+    expect(@x).toApproximate 100
+
+  describe "with duplicate constraints", ->
+    beforeEach ->
+      @dup10 = new Cl.LinearInequality @x, CL.LEQ, 10
+      @solver.addConstraint @dup10
+
+    it "sets x to the duplicate minimum constraint", ->
+      expect(@x).toApproximate 10
+    it "keeps x at the minimum constraint after one duplicate is removed", ->
+      @solver.removeConstraint @c10
+      expect(@x).toApproximate 10
+
+    it "keeps x at the next minimum constraint after both duplicates are removed", ->
+      @solver
+        .removeConstraint(@c10)
+        .removeConstraint(@dup10)
+      expect(@x).toApproximate 20
+
+  describe "with constraints on two variables", ->
+    beforeEach ->
+      @y = new Cl.Variable "y"
+
+      @solver.addConstraint new Cl.LinearEquation @y, 120, Cl.Strength.strong
+    it "sets both to their minimum values", ->
+      expect(@x).toApproximate 10
+      expect(@y).toApproximate 120
+    it "sets both to their minimum values after a constraint is removed", ->
+      @solver.removeConstraint @c10
+      expect(@x).toApproximate 20
+      expect(@y).toApproximate 120
+
 
 
