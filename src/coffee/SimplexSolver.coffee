@@ -297,7 +297,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     bstr
 
   toString: ->
-    #bstr = super()
+    bstr = super()
     bstr += "\n_stayPlusErrorVars: "
     bstr += "[" + @_stayPlusErrorVars + "]"
     bstr += "\n_stayMinusErrorVars: "

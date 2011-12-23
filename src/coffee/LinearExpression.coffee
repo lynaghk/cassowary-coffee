@@ -129,11 +129,12 @@ class Cl.LinearExpression
   toString: ->
     bstr = ''
     needsplus = false
-    if CL.approx(@_constant, 0) || @isConstant()
+    if !CL.approx(@_constant, 0) || @isConstant()
       bstr += @_constant
-      return bstr if @isConstant()
-    else
-      needsplus = true
+      if @isConstant()
+        return bstr
+      else
+        needsplus = true
     @_terms.each (clv, coeff) ->
       bstr += " + " if needsplus
       bstr += coeff + "*" + clv

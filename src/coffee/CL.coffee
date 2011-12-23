@@ -24,9 +24,9 @@ Cl.CL =
     h.each (k,v) ->
       answer += k + " => "
       answer += if v instanceof Hashtable
-        Cl.hashToString v
+        Cl.CL.hashToString v
       else if v instanceof HashSet
-        Cl.setToString v
+        Cl.CL.setToString v
       else
         v + "\n"
     return answer
