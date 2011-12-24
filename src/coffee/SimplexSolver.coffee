@@ -178,12 +178,15 @@ class Cl.SimplexSolver extends Cl.Tableau
             if not exitVar? or r < minRatio
               minRatio = r
               exitVar = v
+
+      unless exitVar?
         if col.size() == 0
           @removeColumn marker
         else
           col.each (v) => exitVar = v unless v == @_objective
 
       @pivot marker, exitVar  if exitVar?
+
     if @rowExpression(marker)?
       expr = @removeRow(marker)
       expr = null
