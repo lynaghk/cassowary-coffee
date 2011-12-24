@@ -124,11 +124,12 @@ class Cl.LinearExpression
   set_constant: (@_constant) ->
   terms: -> @_terms
   incrementConstant: (c) -> @_constant += c
-  isConstant: -> @_terms.size == 0
+  isConstant: -> @_terms.size() == 0
 
   toString: ->
     bstr = ''
     needsplus = false
+
     if !CL.approx(@_constant, 0) || @isConstant()
       bstr += @_constant
       if @isConstant()
