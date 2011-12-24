@@ -47,9 +47,13 @@ class Cl.SimplexSolver extends Cl.Tableau
   addConstraint: (cn) ->
     eplus_eminus = new Array(2)
     prevEConstant = new Array(1)
+
     expr = @newExpression(cn, eplus_eminus, prevEConstant)
+
     prevEConstant = prevEConstant[0]
     @addWithArtificialVariable(expr) unless @tryAddingDirectly(expr)
+
+
     @_fNeedsSolving = true
     if cn.isEditConstraint()
       i = @_editVarMap.size()
@@ -350,9 +354,14 @@ class Cl.SimplexSolver extends Cl.Tableau
     foundNewRestricted = false
     terms = expr.terms()
 
+    retval = null
+
     terms.each (v, c) =>
       if foundUnrestricted
-        return v if !v.isRestricted() and !@columnsHasKey v
+        if !v.isRestricted() and !@columnsHasKey v
+          retval = v
+          return
+
       else if v.isRestricted()
         if not foundNewRestricted and not v.isDummy() and c < 0.0
           col = @_columns.get(v)
@@ -363,6 +372,7 @@ class Cl.SimplexSolver extends Cl.Tableau
         subject = v
         foundUnrestricted = true
 
+    return retval if retval?
     return subject  if subject?
     coeff = 0
 

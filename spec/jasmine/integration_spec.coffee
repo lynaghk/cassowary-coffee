@@ -76,7 +76,7 @@ describe "adding and deleting constraints", ->
       expect(@x).toApproximate 20
       expect(@y).toApproximate 120
 
-    describe "with a constraint between the variables", ->
+    describe "with a linear equation between the variables", ->
       beforeEach ->
         @cxy = new Cl.LinearEquation CL.Times(2, @x), @y
         @solver.addConstraint @cxy
@@ -91,6 +91,35 @@ describe "adding and deleting constraints", ->
         expect(@x).toApproximate 20
         expect(@y).toApproximate 40
 
+      it "satisfies the constraint after x changes twice", ->
+        @solver.removeConstraint @c10
+        @solver.removeConstraint @c20
+
+        expect(@x).toApproximate 60
+        expect(@y).toApproximate 120
+
+      it "satisfies their own constraints after being uncoupled", ->
+        @solver.removeConstraint @c10
+        @solver.removeConstraint @c20
+        @solver.removeConstraint @cxy
+
+        expect(@x).toApproximate 100
+        expect(@y).toApproximate 120
 
 
+
+describe "several possibilities", ->
+  beforeEach ->
+    @x = new Cl.Variable "x"
+    @y = new Cl.Variable "y"
+    @solver = new Cl.SimplexSolver
+    cn = new Cl.LinearInequality @x, CL.LEQ, @y
+    @solver
+      .addConstraint(new Cl.LinearInequality @x, CL.LEQ, @y)
+      .addConstraint(new Cl.LinearEquation(@y, CL.Plus(@x, 3)))
+      .addConstraint(new Cl.LinearEquation @x, 10, Cl.Strength.weak)
+      .addConstraint(new Cl.LinearEquation @y, 10, Cl.Strength.weak)
+  it "should pick one that satisfies the constraints", ->
+    expect((CL.approx(@x, 10) and CL.approx(@y, 13)) or
+           (CL.approx(@x, 7) and CL.approx(@y, 10))).toBeTruthy()
 
