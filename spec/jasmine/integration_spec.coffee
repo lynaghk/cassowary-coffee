@@ -107,7 +107,6 @@ describe "adding and deleting constraints", ->
         expect(@y).toApproximate 120
 
 
-
 describe "several possibilities", ->
   beforeEach ->
     @x = new Cl.Variable "x"
@@ -123,3 +122,32 @@ describe "several possibilities", ->
     expect((CL.approx(@x, 10) and CL.approx(@y, 13)) or
            (CL.approx(@x, 7) and CL.approx(@y, 10))).toBeTruthy()
 
+
+describe "inconsistancies", ->
+  beforeEach ->
+    @x = new Cl.Variable "x"
+    @solver = new Cl.SimplexSolver
+
+  it "should raise an exception with LinearEquations", ->
+    expect(=>
+      @solver.addConstraint(new Cl.LinearEquation(@x, 10))
+      .addConstraint(new Cl.LinearEquation(@x, 5))
+    ).toThrow new Cl.errors.RequiredFailure
+
+  it "should raise an exception with LinearInequalities", ->
+    expect(=>
+      @solver.addConstraint(new Cl.LinearInequality(@x, CL.GEQ, 10))
+      .addConstraint(new Cl.LinearInequality(@x, CL.LEQ, 5))
+    ).toThrow new Cl.errors.RequiredFailure
+
+  it "should raise an exception with cyclic LinearInequalities", ->
+    @y = new Cl.Variable "y"
+    @z = new Cl.Variable "z"
+    @w = new Cl.Variable "w"
+    @solver.addConstraint(new Cl.LinearInequality(@w, CL.GEQ, 10))
+      .addConstraint(new Cl.LinearInequality(@x, CL.GEQ, @w))
+      .addConstraint(new Cl.LinearInequality(@y, CL.GEQ, @x))
+      .addConstraint(new Cl.LinearInequality(@z, CL.GEQ, @y))
+    expect(=>
+      @solver.addConstraint(new Cl.LinearInequality(@z, CL.LEQ, 9))
+    ).toThrow new Cl.errors.RequiredFailure
