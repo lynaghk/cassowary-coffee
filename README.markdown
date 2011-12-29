@@ -9,13 +9,8 @@ The primary design goal of this project is a JavaScript Cassowary implementation
 We're translating the original Cassowary authors' [JavaScript port](http://badros.blogspot.com/2011/05/cassowary-constraint-solver-in.html) to CoffeeScript and using Michael Bolin's [CoffeeScript fork](http://bolinfest.com/coffee/features.html) to generate Closure-friendly JavaScript.
 
 
-
 Install
 =======
-
-If you just want to use Cassowary on your webpage, grab the minified JavaScript here:
-
-    http://keminglabs.com/cassowary-coffee/cassowary.min.js
 
 Development requires node.js for the CoffeeScript compiler and the Jasmine testing library
 Assuming you have node installed, get the code via
@@ -23,6 +18,7 @@ Assuming you have node installed, get the code via
     git clone https://github.com/lynaghk/cassowary-coffee.git
     git submodule update --init
     npm install jasmine-node
+
 
 Build & Test
 ============
@@ -34,4 +30,13 @@ Run the super-simple build script:
 Run tests:
 
     jasmine-node --coffee spec/
+
+
+TODO
+====
+
++ Write exports for the public API so it's possible to compile with Closure's advanced optimizations.
++ Rewrite arithmetic functions to have arity > 2.
++ Design ClojureScript protocol for simpler usage (e.g., IPositionable).
++ Moar samples!
 
