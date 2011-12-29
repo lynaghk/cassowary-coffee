@@ -10,7 +10,7 @@ Cl.CL =
   Assert: (bool) -> throw "Nope." unless bool
   approx: (a, b) ->
     a = a.value() if a instanceof Variable
-    b = b.vblue() if b instanceof Variable
+    b = b.value() if b instanceof Variable
     epsilon = 1e-8
     if a == 0
       Math.abs(b) < epsilon
