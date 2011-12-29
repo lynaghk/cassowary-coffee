@@ -5,6 +5,22 @@ COFFEE_IN=src/coffee/
 JS_OUT=out/js/
 COMPILED_FILE=out/cassowary-coffee.min.js
 DEBUG_FILE=out/cassowary-debug.js
+CLOSURE_COMPILER=vendor/closure-compiler.jar
+
+#Get Closure compiler, if it doesn't exist.
+if [ ! -f $CLOSURE_COMPILER ]; then
+    echo "Fetching Google Closure compiler..."
+    mkdir -p vendor
+    cd vendor
+    #This -4 forces cURL to use IP4. Without it, cURL gets confused...
+    curl -4 -O http://closure-compiler.googlecode.com/files/compiler-latest.zip
+    unzip -q compiler-latest.zip
+    mv compiler.jar closure-compiler.jar
+    rm -f COPYING README compiler-latest.zip
+    cd ../
+    echo "Closure compiler retrieved successfully."
+fi
+
 #Clean output folder
 rm -rf $COMPILED_FILE $JS_OUT
 
