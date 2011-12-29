@@ -1,5 +1,3 @@
-require "./../spec_helper"
-
 describe "simple constraints", ->
   beforeEach ->
     @x = new Cl.Variable 167
