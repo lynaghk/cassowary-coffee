@@ -1,3 +1,5 @@
+#Ensure that these modules are picked up by Closure during compilation
+
 include Cl.CL as CL
 include Cl.LinearExpression
 include Cl.LinearEquation

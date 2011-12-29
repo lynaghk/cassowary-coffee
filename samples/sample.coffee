@@ -1,4 +1,4 @@
-CL = Cl.CL
+# Sample usage of Cassowary-coffee; distribute three circles across one dimension.
 
 window.p = (x) ->
   console.log x
@@ -6,14 +6,6 @@ window.p = (x) ->
 
 width = 600
 height = 200
-
-$canvas = $("<canvas>")
-  .appendTo($('body'))
-  .attr(
-    width: width
-    height: height)
-  .css
-    border: "1px solid black"
 
 #Shared radius variable
 r = new Cl.Variable 40
@@ -28,15 +20,11 @@ solver
   .addStay(r)
 
 for d in circles
-  solver.addConstraint new Cl.LinearInequality d.x, Cl.CL.GEQ, 0
-
   #Vertical constraint
   solver.addConstraint new Cl.LinearEquation d.y, height/2
 
 #The space between circles and edges
 c = new Cl.Variable(0)
-solver.addConstraint new Cl.LinearInequality c, Cl.CL.GEQ, 0
-
 
 #Horizontal constraints
 twoR = new Cl.LinearExpression(r).times(2)
@@ -46,12 +34,20 @@ solver
   .addConstraint(new Cl.LinearEquation circles[2].x, Cl.CL.Plus circles[1].x, Cl.CL.Plus(twoR, c))
   .addConstraint(new Cl.LinearEquation width, Cl.CL.Plus circles[2].x, Cl.CL.Plus(r,c))
 
+#Draw it on a <canvas>
+$canvas = $("<canvas>")
+  .appendTo($('body'))
+  .attr
+    width: width
+    height: height
+  .css
+    border: "1px solid black"
 
-#Draw it
-c = $canvas[0].getContext "2d"
-c.strokeStyle = "black"
+ctx = $canvas[0].getContext "2d"
+ctx.strokeStyle = "black"
 for d in circles
-  c.beginPath()
-  c.arc d.x.value(), d.y.value(), d.r.value(), 0, 2*Math.PI
-  c.closePath()
-  c.stroke()
+  ctx.beginPath()
+  ctx.arc d.x.value(), d.y.value(), d.r.value(), 0, 2*Math.PI
+  ctx.closePath()
+  ctx.stroke()
+
