@@ -20,14 +20,27 @@ Assuming you have node installed, get the code via
     npm install jasmine-node
 
 
-Build & Test
-============
+Build
+=====
 
 Run the super-simple build script:
 
     ./make.sh
 
-Run tests:
+This will download the Closure compiler to `vendor/closure-compiler.jar` if it's not there already.
+
+After you've built the Cassowary library JavaScript, try the samples:
+
+    vendor/coffee-script/bin/coffee   \
+      --google                        \
+      --compile                       \
+      --output out/samples samples/
+
+and test them out by opening `samples/samples.html` in your browser.
+
+
+Test
+====
 
     jasmine-node --coffee spec/
 
@@ -39,4 +52,3 @@ TODO
 + Rewrite arithmetic functions to have arity > 2.
 + Design ClojureScript protocol for simpler usage (e.g., IPositionable).
 + Moar samples!
-

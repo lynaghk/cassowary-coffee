@@ -1,3 +1,3 @@
 [submodule "vendor/coffee-script"]
 	path = vendor/coffee-script
-	url = ssh://git@github.com/lynaghk/coffee-script.git
+	url = git://github.com/lynaghk/coffee-script.git
