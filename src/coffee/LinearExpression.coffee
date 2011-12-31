@@ -1,7 +1,9 @@
 include Cl
 include Cl.CL as CL
-include Hashtable
 include Cl.AbstractVariable as AbstractVariable
+
+include Hashtable
+include underscore._ as _
 
 class Cl.LinearExpression
 
@@ -174,17 +176,21 @@ CL["Times"] = (e1, e2) ->
           e2 instanceof LinearExpression
             new LinearExpression(e2, n)
 
-CL["Plus"] = (e1, e2) ->
-  e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
-  e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
-  e1.plus e2
 
-CL["Minus"] = (e1, e2) ->
-  e1 = new LinearExpression(e1) unless e1 instanceof LinearExpression
-  e2 = new LinearExpression(e2) unless e2 instanceof LinearExpression
-  e1.minus e2
+# Common infrastructure for multiarity arithmetic.
+# The only real difference between addition & subtraction is the reduce function.
+multiarity_addition = (reduce_fn) ->
+  ->
+    if arguments.length == 0
+      new LinearExpression(0)
+    else
+      _(arguments).chain()
+        .map((x) -> new LinearExpression(x) unless x instanceof LinearExpression)
+        .reduce(reduce_fn)
+        .value()
 
-
+CL["Plus"] = multiarity_addition (sum, v) -> sum.plus v
+CL["Minus"] = multiarity_addition (diff, v) -> diff.minus v
 
 goog.exportSymbol "Cl.LinearExpression", Cl.LinearExpression
 # goog.exportSymbol "LinearExpression.prototype.times", Cl.LinearExpression.prototype.times

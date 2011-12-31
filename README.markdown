@@ -49,6 +49,5 @@ TODO
 ====
 
 + Write exports for the public API so it's possible to compile with Closure's advanced optimizations.
-+ Rewrite arithmetic functions to have arity > 2.
 + Design ClojureScript protocol for simpler usage (e.g., IPositionable).
 + Moar samples!
