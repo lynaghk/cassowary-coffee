@@ -14,7 +14,8 @@ global.p = (x) ->
   console.log x
   x
 
-beforeEach ->
-  jasmine.Matchers::toApproximate = (expected) ->
-    expect(CL.approx(@actual, expected)).toBeTruthy()
+if global.jasmine?
+  beforeEach ->
+    jasmine.Matchers::toApproximate = (expected) ->
+      expect(CL.approx(@actual, expected)).toBeTruthy()
 
