@@ -176,21 +176,27 @@ CL["Times"] = (e1, e2) ->
           e2 instanceof LinearExpression
             new LinearExpression(e2, n)
 
+lin = (x) ->
+  if x instanceof LinearExpression
+    x
+  else
+    new LinearExpression(x)
 
-# Common infrastructure for multiarity arithmetic.
-# The only real difference between addition & subtraction is the reduce function.
-multiarity_addition = (reduce_fn) ->
-  ->
-    if arguments.length == 0
-      new LinearExpression(0)
+CL["Plus"] = ->
+  if arguments.length == 0
+    new LinearExpression(0)
+  else
+    _(arguments).chain()
+      .map(lin)
+      .reduce((sum, v) -> sum.plus v)
+      .value()
+
+CL["Minus"] = ->
+  switch(arguments.length)
+    when 0 then new LinearExpression 0
+    when 1 then lin(arguments[0]).times -1
     else
-      _(arguments).chain()
-        .map((x) -> new LinearExpression(x) unless x instanceof LinearExpression)
-        .reduce(reduce_fn)
-        .value()
-
-CL["Plus"] = multiarity_addition (sum, v) -> sum.plus v
-CL["Minus"] = multiarity_addition (diff, v) -> diff.minus v
+      lin(arguments[0]).minus CL["Plus"].apply null, _.rest arguments
 
 goog.exportSymbol "Cl.LinearExpression", Cl.LinearExpression
 # goog.exportSymbol "LinearExpression.prototype.times", Cl.LinearExpression.prototype.times
