@@ -1,2 +1,3 @@
 out/
 vendor/closure-compiler.jar
+manifest.MF
