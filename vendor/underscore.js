@@ -50,8 +50,7 @@
   var _ = function(obj) { return new wrapper(obj); };
   
   //Provide goog namespace so we can require underscore from other files.
-  goog.provide("underscore._");
-  underscore = {};
+  goog.provide("underscore");
   underscore["_"] = _;
 
   // Export the Underscore object for **Node.js** and **"CommonJS"**, with
