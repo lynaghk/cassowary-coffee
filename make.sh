@@ -28,6 +28,7 @@ rm -rf $COMPILED_FILE $JS_OUT
 vendor/coffee-script/bin/coffee   \
     --google                      \
     --compile                     \
+    --bare                        \
     --output $JS_OUT $COFFEE_IN 
 
 #Run Closure Compiler
