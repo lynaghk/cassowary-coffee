@@ -1,5 +1,4 @@
-goog.provide "Cl.errors"
-Cl.errors = {}
+class Cl.errors
 
 class Cl.errors.Error
   this.prototype = new Error()
