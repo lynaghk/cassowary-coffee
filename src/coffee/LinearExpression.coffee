@@ -197,11 +197,3 @@ CL["Minus"] = ->
     when 1 then lin(arguments[0]).times -1
     else
       lin(arguments[0]).minus CL["Plus"].apply null, _.rest arguments
-
-goog.exportSymbol "Cl.LinearExpression", Cl.LinearExpression
-# goog.exportSymbol "LinearExpression.prototype.times", Cl.LinearExpression.prototype.times
-# goog.exportSymbol "LinearExpression.prototype.plus", Cl.LinearExpression.prototype.plus
-# goog.exportSymbol "LinearExpression.prototype.minus", Cl.LinearExpression.prototype.minus
-# goog.exportSymbol "LinearExpression.prototype.divide", Cl.LinearExpression.prototype.divide
-
-# goog.exportSymbol "LinearExpression.prototype.toString", Cl.LinearExpression.prototype.toString
