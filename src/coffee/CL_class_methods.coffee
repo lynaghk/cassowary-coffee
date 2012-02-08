@@ -28,7 +28,7 @@ CL["Times"] = (e1, e2) ->
           e2 instanceof LinearExpression
             new LinearExpression(e2, n)
 
-lin = (x) ->
+CL["Linify"] = (x) ->
   if x instanceof LinearExpression
     x
   else
@@ -39,13 +39,13 @@ CL["Plus"] = ->
     new LinearExpression(0)
   else
     _(arguments).chain()
-      .map(lin)
+      .map(CL["Linify"])
       .reduce((sum, v) -> sum.plus v)
       .value()
 
 CL["Minus"] = ->
   switch(arguments.length)
     when 0 then new LinearExpression 0
-    when 1 then lin(arguments[0]).times -1
+    when 1 then CL["Linify"](arguments[0]).times -1
     else
-      lin(arguments[0]).minus CL["Plus"].apply null, _.rest arguments
+      CL["Linify"](arguments[0]).minus CL["Plus"].apply null, _.rest arguments
