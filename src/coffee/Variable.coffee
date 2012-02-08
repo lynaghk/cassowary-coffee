@@ -1,4 +1,3 @@
-include Cl
 class Cl.AbstractVariable
   constructor: (a1, a2) ->
     @hash_code = Cl.AbstractVariable.iVariableNumber++

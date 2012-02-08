@@ -1,4 +1,3 @@
-include Cl
 include Cl.SymbolicWeight
 
 class Cl.Strength

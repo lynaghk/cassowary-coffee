@@ -2,7 +2,6 @@
 include Cl.Variable as Variable
 
 
-
 #Times, Plus, and Minus functions from the original Cassowary JavaScript port are mixed into the Cl.CL object after LinearExpression is defined.
 class Cl.CL
   @GEQ: 1
