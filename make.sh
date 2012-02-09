@@ -31,6 +31,12 @@ vendor/coffee-script/bin/coffee   \
     --bare                        \
     --output $JS_OUT $COFFEE_IN 
 
+#Copy vendor JS to output path
+mkdir -p $JS_OUT/vendor
+for f in base.js underscore.js jshashtable.js jshashset.js; do
+    cp vendor/$f $JS_OUT/vendor/
+done
+
 #Run Closure Compiler
 java -jar vendor/closure-compiler.jar          \
     --js_output_file $DEBUG_FILE            \
@@ -38,8 +44,4 @@ java -jar vendor/closure-compiler.jar          \
     --formatting PRETTY_PRINT                  \
     --manage_closure_dependencies true         \
     --output_manifest manifest.MF \
-    --js vendor/base.js                        \
-    --js vendor/underscore.js                  \
-    --js vendor/jshashtable.js                 \
-    --js vendor/jshashset.js                   \
     --js $(find $JS_OUT -name '*.js')
