@@ -2,7 +2,6 @@ include Cl.CL as CL
 include Cl.AbstractVariable as AbstractVariable
 
 include Hashtable
-include underscore as _
 
 class Cl.LinearExpression
 

@@ -8,7 +8,7 @@ include Cl.errors
 include Cl.Tableau
 include Cl.SlackVariable
 include Cl.DummyVariable
-include underscore as _
+include _
 
 class Cl.SimplexSolver extends Cl.Tableau
   constructor: ->
