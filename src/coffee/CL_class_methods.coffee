@@ -1,6 +1,7 @@
 #Mixin CL singleton functions that rely on LinearExpression
 include Cl.LinearExpression as LinearExpression
 include Cl.Variable as Variable
+include Cl.CL as CL
 
 CL["Times"] = (e1, e2) ->
   if e1 instanceof LinearExpression and
