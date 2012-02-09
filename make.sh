@@ -2,6 +2,7 @@
 set -e
 
 COFFEE_IN=src/coffee/
+JS_IN=src/js/
 JS_OUT=out/js/
 COMPILED_FILE=out/cassowary-coffee.min.js
 DEBUG_FILE=out/cassowary-debug.js
@@ -38,10 +39,13 @@ for f in base.js underscore.js jshashtable.js jshashset.js; do
 done
 
 #Run Closure Compiler
+#Note that goog base needs to come first since it's needed but not explicitly required by any files
 java -jar vendor/closure-compiler.jar          \
-    --js_output_file $DEBUG_FILE            \
+    --js_output_file $DEBUG_FILE               \
     --compilation_level WHITESPACE_ONLY        \
     --formatting PRETTY_PRINT                  \
     --manage_closure_dependencies true         \
-    --output_manifest manifest.MF \
-    --js $(find $JS_OUT -name '*.js')
+    --output_manifest manifest.MF              \
+    --js out/js/vendor/base.js                 \
+    --js $(find $JS_OUT -name '*.js' | grep -v base) \
+    --js $JS_IN/requires.js
