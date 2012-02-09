@@ -1,3 +1,7 @@
 out/
 vendor/closure-compiler.jar
 manifest.MF
+.cake/
+classes/
+lib/
+pom.xml

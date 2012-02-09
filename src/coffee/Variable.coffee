@@ -1,4 +1,3 @@
-include Cl
 class Cl.AbstractVariable
   constructor: (a1, a2) ->
     @hash_code = Cl.AbstractVariable.iVariableNumber++
@@ -45,11 +44,6 @@ class Cl.Variable extends Cl.AbstractVariable
   change_value: (@_value) ->
   setAttachedObject: (@_attachedObject) ->
   getAttachedObject: -> @_attachedObject
-
-#Static
-Cl.Variable.setVarMap = (@_ourVarMap) ->
-Cl.Variable.getVarMap = (map) -> @_ourVarMap
-
 
 class Cl.DummyVariable extends Cl.AbstractVariable
   constructor: (name_or_val, prefix) -> super name_or_val, prefix

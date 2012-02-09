@@ -1,3 +1,4 @@
 #Setup base namespace.
-#Not sure how else to do this.
-class Cl
+goog.provide("Cl")
+
+Cl.version = "0.0.1"
