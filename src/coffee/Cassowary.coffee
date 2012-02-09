@@ -1,5 +1,4 @@
 #Setup base namespace.
-#goog.provide("Cl")
-global.Cl = Cl or {};
-Cl.version = "grr"
+goog.provide("Cl")
 
+Cl.version = "0.0.1"
