@@ -45,11 +45,6 @@ class Cl.Variable extends Cl.AbstractVariable
   setAttachedObject: (@_attachedObject) ->
   getAttachedObject: -> @_attachedObject
 
-#Static
-Cl.Variable.setVarMap = (@_ourVarMap) ->
-Cl.Variable.getVarMap = (map) -> @_ourVarMap
-
-
 class Cl.DummyVariable extends Cl.AbstractVariable
   constructor: (name_or_val, prefix) -> super name_or_val, prefix
   isDummy: -> true
