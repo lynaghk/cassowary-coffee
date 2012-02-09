@@ -20,35 +20,34 @@ var previousUnderscore = root._;
 // Establish the object that gets returned to break out of a loop iteration.
 var breaker = {};
 
-    // Save bytes in the minified (but not gzipped) version:
+// Save bytes in the minified (but not gzipped) version:
 var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
 
 // Create quick reference variables for speed access to core prototypes.
 var slice            = ArrayProto.slice,
-unshift          = ArrayProto.unshift,
-toString         = ObjProto.toString,
-hasOwnProperty   = ObjProto.hasOwnProperty;
+    unshift          = ArrayProto.unshift,
+    toString         = ObjProto.toString,
+    hasOwnProperty   = ObjProto.hasOwnProperty;
 
-    // All **ECMAScript 5** native function implementations that we hope to use
+// All **ECMAScript 5** native function implementations that we hope to use
 // are declared here.
-var
-nativeForEach      = ArrayProto.forEach,
+var nativeForEach      = ArrayProto.forEach,
     nativeMap          = ArrayProto.map,
-nativeReduce       = ArrayProto.reduce,
-nativeReduceRight  = ArrayProto.reduceRight,
-nativeFilter       = ArrayProto.filter,
-nativeEvery        = ArrayProto.every,
-nativeSome         = ArrayProto.some,
-nativeIndexOf      = ArrayProto.indexOf,
-nativeLastIndexOf  = ArrayProto.lastIndexOf,
-nativeIsArray      = Array.isArray,
+    nativeReduce       = ArrayProto.reduce,
+    nativeReduceRight  = ArrayProto.reduceRight,
+    nativeFilter       = ArrayProto.filter,
+    nativeEvery        = ArrayProto.every,
+    nativeSome         = ArrayProto.some,
+    nativeIndexOf      = ArrayProto.indexOf,
+    nativeLastIndexOf  = ArrayProto.lastIndexOf,
+    nativeIsArray      = Array.isArray,
     nativeKeys         = Object.keys,
     nativeBind         = FuncProto.bind;
 
-    goog.provide("_");
-
+goog.provide("_");
+var _ = function(obj) { return new wrapper(obj); };
 // Current version.
-    _.VERSION = '1.3.1';
+_.VERSION = '1.3.1';
 
 // Collection Functions
 // --------------------
@@ -79,9 +78,9 @@ _.map = _.collect = function(obj, iterator, context) {
   var results = [];
   if (obj == null) return results;
   if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
-      each(obj, function(value, index, list) {
-        results[results.length] = iterator.call(context, value, index, list);
-      });
+  each(obj, function(value, index, list) {
+    results[results.length] = iterator.call(context, value, index, list);
+  });
   if (obj.length === +obj.length) results.length = obj.length;
   return results;
 };
@@ -165,7 +164,7 @@ _.every = _.all = function(obj, iterator, context) {
   if (nativeEvery && obj.every === nativeEvery) return obj.every(iterator, context);
   each(obj, function(value, index, list) {
     if (!(result = result && iterator.call(context, value, index, list))) return breaker;
-      });
+  });
   return result;
 };
 
@@ -181,7 +180,7 @@ var any = _.some = _.any = function(obj, iterator, context) {
     if (result || (result = iterator.call(context, value, index, list))) return breaker;
   });
   return !!result;
-    };
+};
 
 // Determine if a given value is included in the array or object using `===`.
 // Aliased as `contains`.
@@ -276,7 +275,7 @@ _.groupBy = function(obj, val) {
 // be inserted so as to maintain order. Uses binary search.
 _.sortedIndex = function(array, obj, iterator) {
   iterator || (iterator = _.identity);
-      var low = 0, high = array.length;
+  var low = 0, high = array.length;
   while (low < high) {
     var mid = (low + high) >> 1;
     iterator(array[mid]) < iterator(obj) ? low = mid + 1 : high = mid;
@@ -397,7 +396,7 @@ _.difference = function(array) {
 // an index go together.
 _.zip = function() {
   var args = slice.call(arguments);
-      var length = _.max(_.pluck(args, 'length'));
+  var length = _.max(_.pluck(args, 'length'));
   var results = new Array(length);
   for (var i = 0; i < length; i++) results[i] = _.pluck(args, "" + i);
   return results;
@@ -413,7 +412,7 @@ _.indexOf = function(array, item, isSorted) {
   if (array == null) return -1;
   var i, l;
   if (isSorted) {
-        i = _.sortedIndex(array, item);
+    i = _.sortedIndex(array, item);
     return array[i] === item ? i : -1;
   }
   if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item);
@@ -482,7 +481,7 @@ _.bind = function bind(func, context) {
 _.bindAll = function(obj) {
   var funcs = slice.call(arguments, 1);
   if (funcs.length == 0) funcs = _.functions(obj);
-      each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
+  each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
   return obj;
 };
 
@@ -494,7 +493,7 @@ _.memoize = function(func, hasher) {
     var key = hasher.apply(this, arguments);
     return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
   };
-    };
+};
 
 // Delays a function for the given number of milliseconds, and then calls
 // it with the arguments supplied.
@@ -513,7 +512,7 @@ _.defer = function(func) {
 // during a given window of time.
 _.throttle = function(func, wait) {
   var context, args, timeout, throttling, more;
-  var whenDone = _.debounce(function(){ more = throttling = false; }, wait);
+      var whenDone = _.debounce(function(){ more = throttling = false; }, wait);
   return function() {
     context = this; args = arguments;
     var later = function() {
@@ -540,10 +539,10 @@ _.debounce = function(func, wait) {
   return function() {
     var context = this, args = arguments;
     var later = function() {
-      timeout = null;
+          timeout = null;
       func.apply(context, args);
-        };
-        clearTimeout(timeout);
+    };
+    clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
 };
@@ -555,7 +554,7 @@ _.once = function(func) {
   return function() {
     if (ran) return memo;
     ran = true;
-    return memo = func.apply(this, arguments);
+        return memo = func.apply(this, arguments);
   };
 };
 
@@ -575,9 +574,9 @@ _.compose = function() {
   var funcs = arguments;
   return function() {
     var args = arguments;
-    for (var i = funcs.length - 1; i >= 0; i--) {
-      args = [funcs[i].apply(this, args)];
-    }
+        for (var i = funcs.length - 1; i >= 0; i--) {
+              args = [funcs[i].apply(this, args)];
+        }
     return args[0];
   };
 };
@@ -608,7 +607,7 @@ _.values = function(obj) {
 };
 
 // Return a sorted list of the function names available on the object.
-    // Aliased as `methods`
+// Aliased as `methods`
 _.functions = _.methods = function(obj) {
   var names = [];
   for (var key in obj) {
@@ -627,12 +626,12 @@ _.extend = function(obj) {
   return obj;
 };
 
-// Fill in a given object with default properties.
+    // Fill in a given object with default properties.
 _.defaults = function(obj) {
   each(slice.call(arguments, 1), function(source) {
     for (var prop in source) {
       if (obj[prop] == null) obj[prop] = source[prop];
-    }
+        }
   });
   return obj;
 };
@@ -647,8 +646,8 @@ _.clone = function(obj) {
 // The primary purpose of this method is to "tap into" a method chain, in
 // order to perform operations on intermediate results within the chain.
 _.tap = function(obj, interceptor) {
-      interceptor(obj);
-      return obj;
+  interceptor(obj);
+  return obj;
 };
 
 // Internal recursive comparison function.
@@ -703,41 +702,41 @@ function eq(a, b, stack) {
   stack.push(a);
   var size = 0, result = true;
   // Recursively compare objects and arrays.
-  if (className == '[object Array]') {
-    // Compare array lengths to determine if a deep comparison is necessary.
-    size = a.length;
-    result = size == b.length;
-    if (result) {
-      // Deep compare the contents, ignoring non-numeric properties.
-      while (size--) {
-        // Ensure commutative equality for sparse arrays.
-        if (!(result = size in a == size in b && eq(a[size], b[size], stack))) break;
-      }
-    }
-  } else {
-    // Objects with different constructors are not equivalent.
-    if ('constructor' in a != 'constructor' in b || a.constructor != b.constructor) return false;
-    // Deep compare objects.
-    for (var key in a) {
-      if (_.has(a, key)) {
-        // Count the expected number of properties.
-        size++;
-        // Deep compare each member.
-        if (!(result = _.has(b, key) && eq(a[key], b[key], stack))) break;
+      if (className == '[object Array]') {
+        // Compare array lengths to determine if a deep comparison is necessary.
+        size = a.length;
+        result = size == b.length;
+        if (result) {
+          // Deep compare the contents, ignoring non-numeric properties.
+          while (size--) {
+            // Ensure commutative equality for sparse arrays.
+            if (!(result = size in a == size in b && eq(a[size], b[size], stack))) break;
           }
-    }
-    // Ensure that both objects contain the same number of properties.
-    if (result) {
-      for (key in b) {
-        if (_.has(b, key) && !(size--)) break;
+        }
+      } else {
+        // Objects with different constructors are not equivalent.
+        if ('constructor' in a != 'constructor' in b || a.constructor != b.constructor) return false;
+        // Deep compare objects.
+        for (var key in a) {
+          if (_.has(a, key)) {
+            // Count the expected number of properties.
+            size++;
+            // Deep compare each member.
+            if (!(result = _.has(b, key) && eq(a[key], b[key], stack))) break;
+          }
+        }
+        // Ensure that both objects contain the same number of properties.
+        if (result) {
+          for (key in b) {
+            if (_.has(b, key) && !(size--)) break;
+          }
+          result = !size;
+        }
       }
-      result = !size;
-    }
-  }
   // Remove the first object from the stack of traversed objects.
   stack.pop();
   return result;
-    }
+}
 
 // Perform a deep comparison to check if two objects are equal.
 _.isEqual = function(a, b) {
@@ -954,13 +953,13 @@ _.mixin(_);
 // Add all mutator Array functions to the wrapper.
 each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
   var method = ArrayProto[name];
-  wrapper.prototype[name] = function() {
-    var wrapped = this._wrapped;
-    method.apply(wrapped, arguments);
-    var length = wrapped.length;
-    if ((name == 'shift' || name == 'splice') && length === 0) delete wrapped[0];
-    return result(wrapped, this._chain);
-  };
+      wrapper.prototype[name] = function() {
+        var wrapped = this._wrapped;
+        method.apply(wrapped, arguments);
+        var length = wrapped.length;
+        if ((name == 'shift' || name == 'splice') && length === 0) delete wrapped[0];
+        return result(wrapped, this._chain);
+      };
 });
 
 // Add all accessor Array functions to the wrapper.
