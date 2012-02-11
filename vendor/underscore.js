@@ -44,7 +44,7 @@ var nativeForEach      = ArrayProto.forEach,
     nativeKeys         = Object.keys,
     nativeBind         = FuncProto.bind;
 
-goog.provide("_");
+goog.provide('_');
 var _ = function(obj) { return new wrapper(obj); };
 // Current version.
 _.VERSION = '1.3.1';
