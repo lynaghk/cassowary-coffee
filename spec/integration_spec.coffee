@@ -117,8 +117,8 @@ describe "several possibilities", ->
       .addConstraint(new Cl.LinearEquation @x, 10, Cl.Strength.weak)
       .addConstraint(new Cl.LinearEquation @y, 10, Cl.Strength.weak)
   it "should pick one that satisfies the constraints", ->
-    expect((CL.approx(@x, 10) and CL.approx(@y, 13)) or
-           (CL.approx(@x, 7) and CL.approx(@y, 10))).toBeTruthy()
+    expect((Cl.approx(@x, 10) and Cl.approx(@y, 13)) or
+           (Cl.approx(@x, 7) and Cl.approx(@y, 10))).toBeTruthy()
 
 
 describe "inconsistancies", ->

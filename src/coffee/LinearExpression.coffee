@@ -1,4 +1,4 @@
-include Cl.CL as CL
+include Cl
 include Cl.AbstractVariable as AbstractVariable
 
 include Hashtable
@@ -50,14 +50,14 @@ class Cl.LinearExpression
 
   divide: (x) ->
     if typeof(x) == "number"
-      throw new Cl.errors.NonlinearExpression() if CL.approx x, 0
+      throw new Cl.errors.NonlinearExpression() if Cl.approx x, 0
       @times 1/x
     else if x instanceof Cl.LinearExpression
       throw new Cl.errors.NonlinearExpression() unless x.isConstant()
       @times 1/x._constant
 
   divFrom: (expr) ->
-    if (not @isConstant()) or CL.approx @_constant, 0
+    if (not @isConstant()) or Cl.approx @_constant, 0
       throw new Cl.errors.NonlinearExpression()
     expr.divide @_constant
 
@@ -76,13 +76,13 @@ class Cl.LinearExpression
     coeff = @_terms.get v
     if coeff
       new_coefficient = coeff + c
-      if CL.approx new_coefficient, 0
+      if Cl.approx new_coefficient, 0
 
         solver.noteRemovedVariable v, subject if solver
         @_terms.remove v
       else
         @_terms.put v, new_coefficient
-    else if not CL.approx c, 0
+    else if not Cl.approx c, 0
       @_terms.put v, c
       solver.noteAddedVariable(v, subject) if solver
     return this
@@ -104,7 +104,7 @@ class Cl.LinearExpression
       old_coeff = @_terms.get clv
       if old_coeff
         new_coeff = old_coeff + multiplier*coeff
-        if CL.approx new_coeff, 0
+        if Cl.approx new_coeff, 0
           solver.noteRemovedVariable clv, subject
           @_terms.remove clv
         else
@@ -131,7 +131,7 @@ class Cl.LinearExpression
     bstr = ''
     needsplus = false
 
-    if !CL.approx(@_constant, 0) || @isConstant()
+    if !Cl.approx(@_constant, 0) || @isConstant()
       bstr += @_constant
       if @isConstant()
         return bstr

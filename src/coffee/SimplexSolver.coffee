@@ -169,7 +169,7 @@ class Cl.SimplexSolver extends Cl.Tableau
           @traceprint "Marker " + marker + "'s coefficient in " + expr + " is " + coeff  if @fTraceOn
           if coeff < 0.0
             r = -expr.constant() / coeff
-            if not exitVar? or r < minRatio or (CL.approx(r, minRatio) and v.hashCode() < exitVar.hashCode())
+            if not exitVar? or r < minRatio or (Cl.approx(r, minRatio) and v.hashCode() < exitVar.hashCode())
               minRatio = r
               exitVar = v
 
@@ -267,7 +267,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     unless @FContainsVariable(v)
       v.change_value n
       return this
-    unless CL.approx(n, v.value())
+    unless Cl.approx(n, v.value())
       @addEditVar v
       @beginEdit()
       try
@@ -325,7 +325,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     @addRow av, expr
     @optimize az
     azTableauRow = @rowExpression(az)
-    unless CL.approx(azTableauRow.constant(), 0.0)
+    unless Cl.approx(azTableauRow.constant(), 0.0)
       @removeRow az
       @removeColumn av
       throw new Cl.errors.RequiredFailure()
@@ -385,7 +385,7 @@ class Cl.SimplexSolver extends Cl.Tableau
         subject = v
         coeff = c
 
-    throw new Cl.errors.RequiredFailure()  unless CL.approx(expr.constant(), 0)
+    throw new Cl.errors.RequiredFailure()  unless Cl.approx(expr.constant(), 0)
     expr.multiplyMe -1  if coeff > 0
     return subject
 
@@ -426,7 +426,7 @@ class Cl.SimplexSolver extends Cl.Tableau
             if c > 0.0 and v.isPivotable()
               zc = zRow.coefficientFor(v)
               r = zc / c
-              if r < ratio or (CL.approx(r, ratio) and v.hashCode() < entryVar.hashCode())
+              if r < ratio or (Cl.approx(r, ratio) and v.hashCode() < entryVar.hashCode())
                 entryVar = v
                 ratio = r
 
@@ -521,7 +521,7 @@ class Cl.SimplexSolver extends Cl.Tableau
           coeff = expr.coefficientFor(entryVar)
           if coeff < 0.0
             r = -expr.constant() / coeff
-            if r < minRatio or (CL.approx(r, minRatio) and v.hashCode() < exitVar.hashCode())
+            if r < minRatio or (Cl.approx(r, minRatio) and v.hashCode() < exitVar.hashCode())
               minRatio = r
               exitVar = v
 

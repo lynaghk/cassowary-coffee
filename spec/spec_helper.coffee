@@ -17,5 +17,5 @@ global.p = (x) ->
 if global.jasmine?
   beforeEach ->
     jasmine.Matchers::toApproximate = (expected) ->
-      expect(CL.approx(@actual, expected)).toBeTruthy()
+      expect(Cl.approx(@actual, expected)).toBeTruthy()
 
