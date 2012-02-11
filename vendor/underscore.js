@@ -771,11 +771,6 @@ _.isObject = function(obj) {
 _.isArguments = function(obj) {
   return toString.call(obj) == '[object Arguments]';
 };
-if (!_.isArguments(arguments)) {
-  _.isArguments = function(obj) {
-    return !!(obj && _.has(obj, 'callee'));
-  };
-}
 
 // Is a given value a function?
 _.isFunction = function(obj) {
