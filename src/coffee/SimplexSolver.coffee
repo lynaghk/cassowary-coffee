@@ -1,5 +1,6 @@
 include Hashtable
 include HashSet
+include Cl
 include Cl.CL as CL
 include Cl.ObjectiveVariable
 include Cl.LinearExpression

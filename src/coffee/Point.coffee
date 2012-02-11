@@ -1,3 +1,5 @@
+include Cl
+
 class Cl.Point
   constructor: (x, y, suffix) ->
     if x instanceof ClVariable

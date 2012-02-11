@@ -1,6 +1,8 @@
+include Cl
 include Cl.CL as CL
 include Hashtable
 include HashSet
+
 class Cl.Tableau
   constructor: ->
     @_columns = new Hashtable()

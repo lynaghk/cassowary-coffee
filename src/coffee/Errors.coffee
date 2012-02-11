@@ -1,3 +1,5 @@
+include Cl
+
 class Cl.errors
 
 class Cl.errors.Error

@@ -1,3 +1,5 @@
+include Cl
+
 class Cl.EditInfo
   constructor: (@cn, @eplus, @eminus, @prevEditConstant, @i) ->
   Index: -> @i

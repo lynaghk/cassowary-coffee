@@ -1,6 +1,8 @@
+include Cl
 include Cl.CL as CL
 include Cl.Constraint
 include Cl.Strength
+
 class Cl.LinearConstraint extends Cl.Constraint
   constructor: (cle, strength, weight) ->
     super strength, weight

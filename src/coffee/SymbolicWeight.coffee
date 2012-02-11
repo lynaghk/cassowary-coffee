@@ -1,3 +1,5 @@
+include Cl
+
 class Cl.SymbolicWeight
   constructor: (w1, w2, w3) ->
     @_values = new Array(w1, w2, w3)
