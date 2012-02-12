@@ -18,6 +18,12 @@
     (.addConstraint solver constraint)
     (throw (js/Error. "Called constrain! with something not derived from Cl.Constraint; perhaps you forgot (:refer-clojure :exclude [+ - =]) ?"))))
 
+;;TODO remove constraint by value, not object identity.
+(defn unconstrain! [solver constraint]
+  (if (instance? Cl/Constraint constraint)
+    (.removeConstraint solver constraint)
+    (throw (js/Error. "Called unconstrain! with something not derived from Cl.Constraint; perhaps you forgot (:refer-clojure :exclude [+ - =]) ?"))))
+
 (defn stay! [solver cvar] (.addStay solver cvar))
 
 (defn- contains-cassowary? [& args]
