@@ -241,7 +241,7 @@ class Cl.SimplexSolver extends Cl.Tableau
   suggestValue: (v, x) ->
     cei = @_editVarMap.get(v)
     unless cei?
-      print "suggestValue for variable " + v + ", but var is not an edit variable\n"
+      throw new Error "suggestValue for variable " + v + ", but var is not an edit variable\n"
       throw new Cl.errors.Error()
     i = cei.Index()
     clvEditPlus = cei.ClvEditPlus()
@@ -402,7 +402,7 @@ class Cl.SimplexSolver extends Cl.Tableau
       @_infeasibleRows.add minusErrorVar  if exprMinus.constant() < 0.0
       return
     columnVars = @_columns.get(minusErrorVar)
-    print "columnVars is null -- tableau is:\n" + this  unless columnVars
+    throw new Error "columnVars is null -- tableau is:\n" + this  unless columnVars
     columnVars.each (basicVar) =>
       expr = @rowExpression(basicVar)
       c = expr.coefficientFor(minusErrorVar)
@@ -545,7 +545,7 @@ class Cl.SimplexSolver extends Cl.Tableau
   setExternalVariables: ->
     @_externalParametricVars.each (v) =>
       if @rowExpression(v)?
-        print "Error: variable" + v + " in _externalParametricVars is basic"
+        throw new Error "Error: variable" + v + " in _externalParametricVars is basic"
       else
         v.change_value 0.0
 
