@@ -4,7 +4,7 @@ set -e
 COFFEE_IN=src/coffee/
 JS_IN=src/js/
 JS_OUT=out/js/
-COMPILED_FILE=out/cassowary-coffee.min.js
+PKG_OUT=pkg/ #dir that'll be sucked into JAR
 DEBUG_FILE=out/cassowary-debug.js
 CLOSURE_COMPILER=vendor/closure-compiler.jar
 
@@ -23,7 +23,7 @@ if [ ! -f $CLOSURE_COMPILER ]; then
 fi
 
 #Clean output folder
-rm -rf $COMPILED_FILE $JS_OUT
+rm -rf $JS_OUT
 
 #Compile CoffeeScript
 vendor/coffee-script/bin/coffee   \
@@ -49,3 +49,7 @@ java -jar vendor/closure-compiler.jar          \
     --js out/js/vendor/base.js                 \
     --js $(find $JS_OUT -name '*.js' | grep -v base) \
     --js $JS_IN/requires.js #Requires file makes sure everything is pulled in so we can run tests against the output file.
+
+rm -rf $PKG_OUT
+mkdir -p $PKG_OUT
+cp -r $JS_OUT $PKG_OUT/cassowaryjs

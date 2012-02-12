@@ -1,4 +1,5 @@
 out/
+pkg/
 vendor/closure-compiler.jar
 manifest.MF
 .cake/
