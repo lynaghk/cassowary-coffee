@@ -34,7 +34,7 @@ vendor/coffee-script/bin/coffee   \
 
 #Copy vendor JS to output path
 mkdir -p $JS_OUT/vendor
-for f in base.js underscore.js; do
+for f in base.js; do
     cp vendor/$f $JS_OUT/vendor/
 done
 

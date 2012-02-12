@@ -10,7 +10,6 @@ include Cl.DummyVariable
 
 include Cl.HashTable as HashTable
 include Cl.HashSet as HashSet
-include _
 
 class Cl.SimplexSolver extends Cl.Tableau
   constructor: ->
@@ -378,7 +377,7 @@ class Cl.SimplexSolver extends Cl.Tableau
     return subject  if subject?
     coeff = 0
 
-    if _(terms.keys()).any((v) -> not v.isDummy())
+    if terms.keys().some((v) -> not v.isDummy())
       return null
 
     terms.each (v, c) =>

@@ -72,15 +72,14 @@ class Cl.CL
     if arguments.length == 0
       new LinearExpression(0)
     else
-      _(arguments).chain()
+      [].slice.apply(arguments)
         .map(Cl.CL.Linify)
         .reduce((sum, v) -> sum.plus v)
-        .value()
 
   @Minus = ->
     switch(arguments.length)
       when 0 then new LinearExpression 0
       when 1 then Cl.CL.Linify(arguments[0]).times -1
       else
-        Cl.CL.Linify(arguments[0]).minus Cl.CL.Plus.apply null, _.rest arguments
+        Cl.CL.Linify(arguments[0]).minus Cl.CL.Plus.apply null, [].slice.call arguments, 1
 
