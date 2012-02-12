@@ -1,3 +1,5 @@
+//Makes sure everything is pulled in so we can run tests against the output file.
+//DO NOT include this file in the library JAR.
 goog.require('Cl');
 goog.require('Cl.CL');
 goog.require('Cl.Constraint');

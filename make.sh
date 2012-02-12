@@ -48,4 +48,4 @@ java -jar vendor/closure-compiler.jar          \
     --output_manifest manifest.MF              \
     --js out/js/vendor/base.js                 \
     --js $(find $JS_OUT -name '*.js' | grep -v base) \
-    --js $JS_IN/requires.js
+    --js $JS_IN/requires.js #Requires file makes sure everything is pulled in so we can run tests against the output file.
