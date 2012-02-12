@@ -3,8 +3,8 @@ include Cl
 include Cl.LinearExpression as LinearExpression
 include Cl.Variable as Variable
 
-include Hashtable
-include HashSet
+include Cl.HashTable as HashTable
+include Cl.HashSet as HashSet
 
 #Times, Plus, and Minus functions from the original Cassowary JavaScript port are mixed into the Cl.CL object after LinearExpression is defined.
 class Cl.CL
@@ -16,7 +16,7 @@ class Cl.CL
     answer = ""
     h.each (k,v) ->
       answer += k + " => "
-      answer += if v instanceof Hashtable
+      answer += if v instanceof HashTable
         Cl.CL.hashToString v
       else if v instanceof HashSet
         Cl.CL.setToString v

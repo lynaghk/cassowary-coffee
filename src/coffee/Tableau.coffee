@@ -1,12 +1,13 @@
 include Cl
 include Cl.CL as CL
-include Hashtable
-include HashSet
+
+include Cl.HashTable as HashTable
+include Cl.HashSet as HashSet
 
 class Cl.Tableau
   constructor: ->
-    @_columns = new Hashtable()
-    @_rows = new Hashtable()
+    @_columns = new HashTable()
+    @_rows = new HashTable()
     @_infeasibleRows = new HashSet()
     @_externalRows = new HashSet()
     @_externalParametricVars = new HashSet()

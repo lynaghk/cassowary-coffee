@@ -1,5 +1,3 @@
-include Hashtable
-include HashSet
 include Cl
 include Cl.CL as CL
 include Cl.ObjectiveVariable
@@ -9,6 +7,9 @@ include Cl.errors
 include Cl.Tableau
 include Cl.SlackVariable
 include Cl.DummyVariable
+
+include Cl.HashTable as HashTable
+include Cl.HashSet as HashSet
 include _
 
 class Cl.SimplexSolver extends Cl.Tableau
@@ -16,18 +17,18 @@ class Cl.SimplexSolver extends Cl.Tableau
     super()
     @_stayMinusErrorVars = new Array()
     @_stayPlusErrorVars = new Array()
-    @_errorVars = new Hashtable()
-    @_markerVars = new Hashtable()
+    @_errorVars = new HashTable()
+    @_markerVars = new HashTable()
     @_resolve_pair = new Array(0, 0)
     @_objective = new Cl.ObjectiveVariable("Z")
-    @_editVarMap = new Hashtable()
+    @_editVarMap = new HashTable()
     @_slackCounter = 0
     @_artificialCounter = 0
     @_dummyCounter = 0
     @_epsilon = 1e-8
     @_fOptimizeAutomatically = true
     @_fNeedsSolving = false
-    @_rows = new Hashtable()
+    @_rows = new HashTable()
     @_rows.put @_objective, new Cl.LinearExpression()
     @_stkCedcns = new Array()
     @_stkCedcns.push 0

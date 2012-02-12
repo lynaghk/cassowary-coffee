@@ -1,13 +1,13 @@
 include Cl
 include Cl.AbstractVariable as AbstractVariable
 
-include Hashtable
+include Cl.HashTable as HashTable
 
 class Cl.LinearExpression
 
   constructor: (clv, value, constant) ->
     @_constant = constant || 0
-    @_terms = new Hashtable()
+    @_terms = new HashTable()
     if clv instanceof AbstractVariable
       @_terms.put clv, value || 1
     else if typeof(clv) == "number"
