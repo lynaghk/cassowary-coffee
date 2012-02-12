@@ -1,5 +1,5 @@
 (ns cassowary.core
-  (:refer-clojure :exclude [+ - =])
+  (:refer-clojure :exclude [+ - * =])
   (:require [Cl :as Cl] ;;Not strictly necessary, but makes me feel better about writing "Cl/" all the time.
             [Cl.CL :as CL]
             [Cl.Variable :as Variable]
@@ -28,12 +28,18 @@
 
 (defmulti + contains-cassowary?)
 (defmulti - contains-cassowary?)
+(defmulti * contains-cassowary?)
 (defmulti = contains-cassowary?)
+
 
 (defmethod + :number [& args] (apply clojure.core/+ args))
 (defmethod = :number [& args] (apply clojure.core/= args))
+(defmethod * :number [& args] (apply clojure.core/* args))
 (defmethod - :number [& args] (apply clojure.core/- args))
 
+
 (defmethod + :cassowary-var [& args] (apply CL/Plus args))
-(defmethod = :cassowary-var [a b] (Cl/LinearEquation. a b))
 (defmethod - :cassowary-var [& args] (apply CL/Minus args))
+(defmethod * :cassowary-var [a b] (CL/Times a b))
+(defmethod = :cassowary-var [a b] (Cl/LinearEquation. a b))
+
