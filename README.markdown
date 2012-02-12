@@ -9,6 +9,52 @@ The primary design goal of this project is a JavaScript Cassowary implementation
 We're translating the original Cassowary authors' [JavaScript port](http://badros.blogspot.com/2011/05/cassowary-constraint-solver-in.html) to CoffeeScript and using Michael Bolin's [CoffeeScript fork](http://bolinfest.com/coffee/features.html) to generate Closure-friendly JavaScript.
 
 
+
+Using from ClojureScript
+========================
+
+Add to your `project.clj`:
+
+    [com.keminglabs/cassowary "0.1.0"]
+
+and add "cassowaryjs" to the ClojureScript compiler `:libs` option so it looks like this:
+
+    (closure/build "my/cljs/src" {:optimizations :advanced
+                                  :libs ["cassowaryjs"]})
+
+Using Cassowary from ClojureScript costs about 18KB in advanced mode.
+
+Example usage
+=============
+
+
+```clojure
+(ns cassowary-demo
+  (:refer-clojure :exclude [+ - * =])
+  (:use [cassowary.core :only [+ - = * cvar value constrain! unconstrain! simplex-solver]]))
+
+(defn *print-fn* [x] (.log js/console x))
+
+(let [solver  (simplex-solver)
+      vars    (for [_ (range 5)] (cvar 0))]
+
+  ;;Relation between consecutive pairs of variables
+  (doseq [[a b] (partition 2 1 vars)]
+    (constrain! solver (= b (* 2 a))))
+  
+  (let [c1 (= 1 (first vars))
+        c2 (= -5 (first vars))]
+    
+    (constrain! solver c1)
+    (print (pr-str (map value vars))) ;=> (1 2 4 8 16)
+    
+    (unconstrain! solver c1)
+    (constrain! solver c2)
+    (print (pr-str (map value vars))))) ;=> (-5 -10 -20 -40 -80)
+```
+
+
+
 Install
 =======
 
@@ -47,7 +93,7 @@ Test
 
 TODO
 ====
-
-+ Write exports for the public API so it's possible to compile with Closure's advanced optimizations.
++ Multiarity multiplication
++ ClojureScript wrappers for simple editing of variable values.
 + Design ClojureScript protocol for simpler usage (e.g., IPositionable).
 + Moar samples!
