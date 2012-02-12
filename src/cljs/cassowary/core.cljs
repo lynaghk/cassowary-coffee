@@ -10,7 +10,7 @@
 (defn cvar
   ([] (cvar 0))
   ([val] (Cl/Variable. (js/parseFloat val))))
-
+(defn value [cvar] (.value cvar))
 (defn simplex-solver [] (Cl/SimplexSolver.))
 
 (defn constrain! [solver constraint]
