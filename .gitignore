@@ -1,4 +1,5 @@
-out/
+dev_public/
+target/
 pkg/
 vendor/closure-compiler.jar
 manifest.MF
