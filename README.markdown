@@ -8,6 +8,8 @@ See for example OS X Lion's [Autolayout system](http://developer.apple.com/libra
 The primary design goal of this project is a JavaScript Cassowary implementation compatible with Google's Closure compiler's advanced mode.
 We're translating the original Cassowary authors' [JavaScript port](http://badros.blogspot.com/2011/05/cassowary-constraint-solver-in.html) to CoffeeScript and using Michael Bolin's [CoffeeScript fork](http://bolinfest.com/coffee/features.html) to generate Closure-friendly JavaScript.
 
+This project is currently on the back-burner for me.
+You may want to check out Alex Russell's [JavaScript Cassowary](https://github.com/slightlyoff/cassowary-js-refactor) which is under more active development and has a number of serious performance improvements compared to this naive translation.
 
 
 Using from ClojureScript
